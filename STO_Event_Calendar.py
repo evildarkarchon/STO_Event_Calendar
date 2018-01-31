@@ -12,10 +12,10 @@ def gatherinfo(string):
         return int(input(string))
 
 parser = argparse.ArgumentParser(description="Calculator for Star Trek Online in-game events.")
-parser.add_argument('--daily-tokens', '-d', type=int, dest='daily')
-parser.add_argument('--total-tokens', '-tt', type=int, dest='total')
-parser.add_argument('--tokens-claimed', '-tc', type=int, dest='claimed')
-parser.add_argument('--end-date', '-e', dest='end')
+parser.add_argument('--daily-tokens', '-d', type=int, dest='daily', help='The amount of tokens you can get per day.')
+parser.add_argument('--total-tokens', '-tt', type=int, dest='total', help='The total amount of tokens you need to complete the project.')
+parser.add_argument('--tokens-claimed', '-tc', type=int, dest='claimed', help="The amount of tokens you've already claimed.")
+parser.add_argument('--end-date', '-e', dest='end', help="The date that the event ends.")
 args = parser.parse_args()
 
 # Gathering info about the current event
