@@ -48,14 +48,14 @@ td = date.today()
 end = datetime.strptime(end_date, "%m/%d/%Y").date()
 remaining = end - td
 try:
-    days_needed = int((needed - tokens) / daily)
-    if days_needed < 0:
+    days_needed = timedelta(int((needed - tokens) / daily))
+    if days_needed.days < 0:
         raise ValueError
 except ValueError:
     print("ValueError: Days Needed is a negative number.")
     exit(1)
-date_needed = td + timedelta(days_needed)
-final_day = end - timedelta(days_needed)
+date_needed = td + days_needed
+final_day = end - days_needed
 
 
 # The Output
@@ -71,9 +71,9 @@ if final_day < td:
     print('The wormhole\'s closed, captain.')
     print('There\'s no way to get the reward for this event.')
 elif final_day == td:
-    print('Days needed to complete event:', days_needed)
+    print('Days needed to complete event:', days_needed.days)
     print('You must claim the daily tokens every day from here on out.')
 else:
-    print('Days needed to complete event:', days_needed)
+    print('Days needed to complete event:', days_needed.days)
     print('Final day to start:', final_day.strftime("%B %d"))
 print("Estimated date of completion (if you get your tokens every day):", date_needed.strftime("%B %d"))
