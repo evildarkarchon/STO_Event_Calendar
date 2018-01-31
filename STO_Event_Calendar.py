@@ -40,38 +40,6 @@ if args.end:
 else:
     end_date = gatherinfo("End date (MM/DD/YYY): ")
 
-'''try:
-    daily = int(raw_input("Max tokens per day: "))
-except NameError:
-    try:
-        daily = int(input("Max Tokens per day: "))
-    except KeyboardInterrupt:
-        exit(1)
-
-try:
-    needed = int(raw_input("Total tokens needed: "))
-except NameError:
-    try:
-        needed = int(input("Total tokens needed: "))
-    except KeyboardInterrupt:
-        exit(1)
-
-try:
-    tokens = int(raw_input("Tokens already claimed: "))
-except NameError:
-    try:
-        tokens = int(input("Tokens already claimed: "))
-    except KeyboardInterrupt:
-        exit(1)
-
-try:
-    end_date = raw_input("End date (MM/DD/YYYY): ")
-except NameError:
-    try:
-        end_date = input("End Date (MM/DD/YYYY): ")
-    except KeyboardInterrupt:
-        exit(1)'''
-
 
 # Calculating time left
 td = date.today()
