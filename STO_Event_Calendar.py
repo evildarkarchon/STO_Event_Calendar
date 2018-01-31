@@ -43,8 +43,6 @@ else:
 
 # Calculating time left
 td = date.today()
-# month, day, year = end_date.split("/")
-# end = date(int(year), int(month), int(day))
 end = datetime.strptime(end_date, "%m/%d/%Y").date()
 remaining = end - td
 try:
