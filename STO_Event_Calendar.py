@@ -7,9 +7,9 @@ from datetime import date, timedelta, datetime
 
 def gatherinfo(string):
     try:
-        return int(raw_input(string))
+        return raw_input(string)
     except NameError:
-        return int(input(string))
+        return input(string)
 
 parser = argparse.ArgumentParser(description="Calculator for Star Trek Online in-game events.")
 parser.add_argument('--daily-tokens', '-d', type=int, dest='daily', help='The amount of tokens you can get per day.')
@@ -23,17 +23,17 @@ args = parser.parse_args()
 if args.daily:
     daily = args.daily
 else:
-    daily = gatherinfo("Max tokens per day: ")
+    daily = int(gatherinfo("Max tokens per day: "))
 
 if args.total:
     needed = args.total
 else:
-    needed = gatherinfo("Total tokens needed: ")
+    needed = int(gatherinfo("Total tokens needed: "))
 
 if args.claimed:
     tokens = args.claimed
 else:
-    tokens = gatherinfo("Tokens already claimed: ")
+    tokens = int(gatherinfo("Tokens already claimed: "))
 
 if args.end:
     end_date = args.end
