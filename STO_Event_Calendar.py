@@ -6,6 +6,8 @@ import argparse
 from datetime import date, timedelta, datetime
 
 def gatherinfo(string):
+    '''This function prompts the user for input with the prompt being specified by the "string" argument.
+       This function does not do any data verification, so any wrong data input will probably trigger a TypeError or ValueError later on.'''
     try:
         return raw_input(string)
     except NameError:
