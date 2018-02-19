@@ -1,9 +1,11 @@
-#pylint: disable=invalid-name, missing-docstring
-from __future__ import print_function
+#pylint: disable=invalid-name, missing-docstring, line-too-long
+from __future__ import division, print_function
 
 import argparse
 
+
 from datetime import date, timedelta, datetime
+from math import ceil
 
 def gatherinfo(string):
     '''This function prompts the user for input with the prompt being specified by the "string" argument.
@@ -48,11 +50,11 @@ td = date.today()
 end = datetime.strptime(end_date, "%m/%d/%Y").date()
 remaining = end - td
 try:
-    days_needed = timedelta(int((needed - tokens) / daily))
+    days_needed = timedelta(int(ceil((needed - tokens) / daily)))
     if days_needed.days < 0:
-        raise ValueError
-except ValueError:
-    print("ValueError: Days Needed is a negative number.")
+        raise ValueError("\nError: Days Needed has yielded a negative number.")
+except ValueError as e:
+    print(e)
     exit(1)
 date_needed = td + days_needed
 final_day = end - days_needed
@@ -64,7 +66,7 @@ final_day = end - days_needed
 # get tokens every day in order to complete
 # the event and recieve the reward.
 
-print('\nToday:', td.strftime("%B %d"))
+print('\nToday\'s date:', td.strftime("%B %dth %Y"))
 print('Days remaining in event:', remaining.days)
 
 if final_day < td:
