@@ -20,7 +20,7 @@ parser.add_argument('--daily-tokens', '-d', type=int, dest='daily', help='The am
 parser.add_argument('--total-tokens', '-t', type=int, dest='total', help='The total amount of tokens you need to complete the project.')
 parser.add_argument('--tokens-claimed', '-c', type=int, dest='claimed', help="The amount of tokens you've already claimed.")
 parser.add_argument('--end-date', '-e', dest='end', help="The date that the event ends.")
-parser.add_argument('--daily-reset', '-r', dest='reset', type=float, default=20.0, help="Time that the daily has left (in case you've already) turned it in today, in hours.")
+parser.add_argument('--daily-reset', '-r', dest='reset', type=float, default=20.0, help="Time that the daily has left (in case you've already turned it in today), in hours.")
 args = parser.parse_args()
 
 # Gathering info about the current event
