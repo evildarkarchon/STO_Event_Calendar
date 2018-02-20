@@ -4,7 +4,7 @@ from __future__ import division, print_function
 import argparse
 
 
-from datetime import date, timedelta, datetime
+from datetime import datetime, timedelta
 from math import ceil
 
 def gatherinfo(string):
@@ -46,8 +46,12 @@ else:
 
 
 # Calculating time left
-td = date.today()
-end = datetime.strptime(end_date, "%m/%d/%Y").date()
+td = datetime.today()
+# dt = datetime.today()
+# td = dt.date()
+# tod = dt + timedelta(hours=20)
+tod = td + timedelta(hours=20)
+end = datetime.strptime(end_date, "%m/%d/%Y") # .date()
 remaining = end - td
 try:
     days_needed = timedelta(int(ceil((needed - tokens) / daily)))
@@ -79,3 +83,4 @@ else:
     print('Days needed to complete event:', days_needed.days)
     print('Final day to start:', final_day.strftime("%B %d"))
 print("Estimated date of completion (if you get your tokens every day):", date_needed.strftime("%B %d"))
+print("Daily quest will be available at aproximately:", tod.strftime("%B %dth %Y at %I:%M %p"))
