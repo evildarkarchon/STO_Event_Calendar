@@ -58,7 +58,7 @@ try:
 except ValueError as e:
     print(e)
     exit(1)
-date_needed = td + days_needed
+date_needed = td.date() + days_needed
 final_day = end - days_needed
 
 
