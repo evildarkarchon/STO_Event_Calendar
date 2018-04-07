@@ -1,0 +1,9 @@
+[package]
+name = "STO_Event_Calculator"
+version = "0.1.0"
+authors = ["Andrew Nelson <andrew@andrewnelson.org>"]
+
+[dependencies]
+clap = "2.31.0"
+chrono = "0.4"
+time = "0.1"
