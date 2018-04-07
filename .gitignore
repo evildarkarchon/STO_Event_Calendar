@@ -1,1 +1,3 @@
 *.code-workspace
+/target
+**/*.rs.bk
