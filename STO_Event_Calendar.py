@@ -68,17 +68,22 @@ final_day = end - days_needed
 # get tokens every day in order to complete
 # the event and recieve the reward.
 
-print('\nToday\'s date:', td.strftime("%B %dth %Y"))
+print('\nToday\'s date:', td.strftime("%B %d %Y"))
 print('Days remaining in event:', remaining.days)
+
+def print_dates():
+    print("Estimated date of completion (if you get your tokens every day):",
+          date_needed.strftime("%B %d"))
+    print("Daily quest will be available at aproximately:",
+          tod.strftime("%B %d %Y at %I:%M %p"))
+    print('Days needed to complete event:', days_needed.days)
 
 if final_day < td:
     print('The wormhole\'s closed, captain.')
     print('There\'s no way to get the reward for this event.')
 elif final_day == td:
-    print('Days needed to complete event:', days_needed.days)
     print('You must claim the daily tokens every day from here on out.')
+    print_dates()
 else:
-    print('Days needed to complete event:', days_needed.days)
     print('Final day to start:', final_day.strftime("%B %d"))
-print("Estimated date of completion (if you get your tokens every day):", date_needed.strftime("%B %d"))
-print("Daily quest will be available at aproximately:", tod.strftime("%B %dth %Y at %I:%M %p"))
+    print_dates()
