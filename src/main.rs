@@ -2,36 +2,16 @@ extern crate chrono;
 extern crate clap;
 extern crate time;
 
-mod input;
+mod parse_number;
+mod times;
 
 use chrono::prelude::*;
 use clap::{Arg, App};
 use time::Duration;
-
-struct Times {
-    end: NaiveDate,
-    reset_hours: f64,
-    current_dt: chrono::NaiveDateTime,
-    current_date: chrono::NaiveDate,
-    days_needed: chrono::Duration
-    }
-
-impl Times {
-    fn reset(&self) -> chrono::NaiveDateTime {
-        self.current_dt + Duration::hours(self.reset_hours as i64)
-    }
-
-    fn remaining(&self) -> chrono::Duration {
-        NaiveDate::signed_duration_since(self.end, self.current_date)
-    }
-
-    fn final_day(&self) -> chrono::NaiveDate {
-        self.end - self.days_needed
-    }
-}
+use times::Times;
 
 fn main() {
-    let input_number = input::input_number;
+    let parse_number = parse_number::parse_number;
 
     const DATE_STR: &'static str = "%B %d %Y";
     //const MIN_DATE_STR: &'static str = "%B %d";
@@ -79,15 +59,15 @@ fn main() {
                             .help("Number of hours until the daily quest(s) reset."))
                         .get_matches();
 
-    let claimed = input_number(&args, "claimed");
-    let total = input_number(&args, "total");
-    let daily = input_number(&args, "daily");
+    let claimed = parse_number(&args, "claimed");
+    let total = parse_number(&args, "total");
+    let daily = parse_number(&args, "daily");
 
     let times = Times {
         end: NaiveDate::parse_from_str(args.value_of("end").unwrap(), DATE_FORMAT)
                                                                                 .ok()
                                                                                 .unwrap(),
-        reset_hours: input_number(&args, "reset"),
+        reset_hours: parse_number(&args, "reset"),
         current_dt: Utc::now().naive_utc(),
         current_date: Utc::now().naive_utc().date(),
         days_needed: Duration::days((total - claimed) as i64 / daily as i64)
