@@ -1,3 +1,4 @@
 *.code-workspace
 /target
 **/*.rs.bk
+*.exe
