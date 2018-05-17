@@ -14,7 +14,7 @@ use clap::ArgMatches;
 }*/
 
 pub fn parse_number(cmd: &ArgMatches, cmdname: &str) -> f64 {
-    let intermediate: f64 = cmd.value_of(cmdname)
+    let intermediate: String = cmd.value_of(cmdname)
                                                 .unwrap()
                                                 .parse()
                                                 .unwrap();

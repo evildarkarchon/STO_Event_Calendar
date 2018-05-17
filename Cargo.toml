@@ -7,3 +7,4 @@ authors = ["Andrew Nelson <andrew@andrewnelson.org>"]
 clap = "2.31.0"
 chrono = "0.4"
 time = "0.1"
+text_io = "0.1.7"
