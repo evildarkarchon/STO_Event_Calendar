@@ -27,8 +27,10 @@ end
 
 today = date.now
 
-stats.daily = gatherinfo('Max tokens per day: ').to_i unless stats.daily
-stats.needed = gatherinfo('Total tokens needed: ').to_i unless stats.needed
-stats.claimed = gatherinfo('Tokens already claimed: ').to_i unless stats.claimed
-stats.end = Date.parse(gatherinfo('End Date: ')) unless stats.end
-stats.reset = gatherinfo('Hours until reset: ').to_f unless stats.reset
+# rubocop:disable Metrics/LineLength, Style/StringLiterals
+stats.daily = gatherinfo('Max tokens per day: ').to_i unless stats.daily.respond_to?(:to_i)
+stats.needed = gatherinfo('Total tokens needed: ').to_i unless stats.needed.respond_to?(:to_i)
+stats.claimed = gatherinfo('Tokens already claimed: ').to_i unless stats.claimed.respond_to?(:to_i)
+stats.end = Date.strptime(gatherinfo('End Date (MM/DD/YYYY): '), "%m/%d/%Y") unless stats.end.respond_to?(:to_date)
+stats.reset = gatherinfo('Hours until reset: ').to_f unless stats.reset.respond_to?(:to_f)
+# rubocop:enable Metrics/LineLength, Style/StringLiterals
