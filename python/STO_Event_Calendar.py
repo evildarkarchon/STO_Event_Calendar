@@ -1,8 +1,12 @@
 #pylint: disable=invalid-name, missing-docstring, line-too-long
 from __future__ import division, print_function
 
-import argparse
+# try:
+#     from __future__ import assertions  # putting this here in case i need it.
+# except ImportError:
+#     pass
 
+import argparse
 
 from datetime import datetime, timedelta
 from math import ceil
@@ -45,10 +49,15 @@ if args.end:
 else:
     end_date = gatherinfo("End date (MM/DD/YYY): ")
 
+if args.reset:
+    reset = args.reset
+else:
+    reset = float(gatherinfo("Hours until dailies reset: "))
+
 
 # Calculating time left
 td = datetime.today()
-tod = td + timedelta(hours=args.reset)
+tod = td + timedelta(hours=reset)
 end = datetime.strptime(end_date, "%m/%d/%Y") # .date()
 remaining = end - td
 try:
