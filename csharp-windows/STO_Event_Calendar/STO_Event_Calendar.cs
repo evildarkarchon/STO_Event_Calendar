@@ -7,89 +7,123 @@ using CommandLine;
 
 namespace STO_Event_Calendar
 {
-    class Options {
-      [Option('d', "daily-tokens")]
-      public uint DailyTokens {get; set;}
-
-      [Option('t', "total-tokens")]
-      public uint TotalTokens {get; set;}
-
-      [Option('c', "tokens-claimed")]
-      public uint TokensClaimed {get; set;}
-
-      [Option('e', "end-date")]
-      public string EndDate {get; set;}
-
-      [Option('r', "reset")]
-      public float Reset {get; set;}
-
+    struct Date
+    {
+        public string EndDate;
+        public float Reset;
+        public uint Needed;
+        public uint Tokens;
+        public uint Daily;
     }
 
     class STO_Event_Calendar
     {
-
         public static void Main(string[] args)
         {
             ParserResult<Options> result = Parser.Default.ParseArguments<Options>(args);
-            /*if (result.Tag == ParserResultType.Parsed)
+            /*
+            if (result.Tag == ParserResultType.Parsed)
             {
                 var options = ((Parsed<Options>)result).Value;
             }
             else
             {
                 var errors = ((NotParsed<Options>)result).Errors;
-            }*/
+            }
+            */
 #pragma warning disable CS0168 // Variable is declared but never used
+#pragma warning disable CS8321 // Local function is declared but never used
 
-            void end(string d)
+            Calc DateCalc;
+
+            Date Dates;
+
+            if (result.Tag == ParserResultType.Parsed)
             {
-                DateTimeOffset Now = DateTimeOffset.Now;
+                DateCalc = new Calc(((Parsed<Options>)result).Value);
+            }
+            else
+            {
+                Console.Write("Enter the Date that the event ends: ");
+                Dates.EndDate = Console.ReadLine();
 
-                if (DateTimeOffset.TryParse(d, out DateTimeOffset End))
+                if (String.IsNullOrEmpty(Dates.EndDate))
                 {
-                    TimeSpan EndDiff = End - Now;
-                    
-                    if (EndDiff.Days > 1)
-                    {
-                        Console.WriteLine("There are {0} days until the event ends.", EndDiff.Days);
-                    }
-                    else if (EndDiff.Days == 1)
-                    {
-                        Console.WriteLine("There is 1 day until the event ends.");
-                    }
-                    else if (EndDiff.Days < 1 && EndDiff.Hours > 1)
-                    {
-                        Console.WriteLine("There are {0} hours until the event ends", EndDiff.Hours);
-                    }
-                    else if (EndDiff.Days < 1 && EndDiff.Hours == 1)
-                    {
-                        Console.WriteLine("There is 1 hour until the event ends.");
-                    }
-                    else if (EndDiff.Days < 1 && EndDiff.Hours < 1 && EndDiff.Minutes >= 1)
-                    {
-                        Console.WriteLine("There are {0} minutes until the event ends.", EndDiff.Minutes);
-                    }
-                    else if (EndDiff.Days < 1 && EndDiff.Hours < 1 && EndDiff.Minutes == 1)
-                    {
-                        Console.WriteLine("There is only 1 minute until the event ends.");
-                    }
-                    else if (EndDiff.Days < 1 && EndDiff.Hours < 1 && EndDiff.Minutes < 1 && EndDiff.Seconds < 1)
-                    {
-                        Console.WriteLine("The event is over, sorry.");
-                    }
+                    throw new ArgumentException("You must enter a date.");
                 }
-                else
+
+                Console.Write("Enter the number of hours until the dailies reset: ");
+                Dates.Reset = float.Parse(Console.ReadLine());
+
+                if (String.IsNullOrEmpty(Dates.Reset.ToString()))
                 {
-                    Console.WriteLine("Unable to parse date value.");
+                    throw new ArgumentException("You must enter the number of hours until reset.");
+                }
+
+                Console.Write("Enter the number of tokens needed to complete the event: ");
+                Dates.Needed = uint.Parse(Console.ReadLine());
+
+                if (String.IsNullOrEmpty(Dates.Needed.ToString()))
+                {
+                    throw new ArgumentException("You must enter the number of tokens needed to complete the event.");
+                }
+
+                Console.Write("Enter the number of tokens you currently have: ");
+                Dates.Tokens = uint.Parse(Console.ReadLine());
+
+                if (String.IsNullOrEmpty(Dates.Tokens.ToString()))
+                {
+                    throw new ArgumentException("You must enter the number of tokens you currently have.");
+                }
+
+                Console.Write("Enter the number of tokens you get on a daily basis: ");
+                Dates.Daily = uint.Parse(Console.ReadLine());
+
+                if (String.IsNullOrEmpty(Dates.Daily.ToString()))
+                {
+                    throw new ArgumentException("You must enter the number of tokens you get on a daily basis.");
+                }
+
+                DateCalc = new Calc(Dates);
+            }
+
+            
+            void end(TimeSpan n)
+            {          
+                if (n.Days > 1)
+                {
+                    Console.WriteLine("There are {0} days until the event ends.", n.Days);
+                }
+                else if (n.Days == 1)
+                {
+                    Console.WriteLine("There is 1 day until the event ends.");
+                }
+                else if (n.Days < 1 && n.Hours > 1)
+                {
+                    Console.WriteLine("There are {0} hours until the event ends", n.Hours);
+                }
+                else if (n.Days < 1 && n.Hours == 1)
+                {
+                    Console.WriteLine("There is 1 hour until the event ends.");
+                }
+                else if (n.Days < 1 && n.Hours < 1 && n.Minutes >= 1)
+                {
+                    Console.WriteLine("There are {0} minutes until the event ends.", n.Minutes);
+                }
+                else if (n.Days < 1 && n.Hours < 1 && n.Minutes == 1)
+                {
+                    Console.WriteLine("There is only 1 minute until the event ends.");
+                }
+                else if (n.Days < 1 && n.Hours < 1 && n.Minutes < 1 && n.Seconds < 1)
+                {
+                    Console.WriteLine("The event is over, sorry.");
                 }
             }
 
-            result.WithParsed<Options>(options => end(options.EndDate)).WithNotParsed(errors => {
-                Console.Write("Input the date the event ends: ");
-                end(Console.ReadLine());
-            } );
+            end(DateCalc.EndDiff);
 
 #pragma warning restore CS0168 // Variable is declared but never used
+#pragma warning restore CS8321 // Local function is declared but never used
         }
     }
 }
