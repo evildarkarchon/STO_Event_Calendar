@@ -41,7 +41,7 @@ namespace STO_Event_Calendar
             Tokens = tokens;
             Daily = daily;
 
-            float _dn = ((needed - tokens) / daily);
+            float _dn = (needed - tokens) / daily;
             DaysNeeded = (uint)TimeSpan.FromDays(Math.Ceiling(_dn)).Days;
         }
 
@@ -58,7 +58,7 @@ namespace STO_Event_Calendar
 
             Reset = Now + TimeSpan.FromHours(o.Reset);
 
-            float _dn = ((o.TotalTokens - o.TokensClaimed) / o.DailyTokens);
+            float _dn = (o.TotalTokens - o.TokensClaimed) / o.DailyTokens;
             DaysNeeded = (uint)TimeSpan.FromDays(Math.Ceiling(_dn)).Days;
         }
 
@@ -76,7 +76,7 @@ namespace STO_Event_Calendar
             Reset = Now + TimeSpan.FromHours(dates.Reset);
             Dates = dates;
 
-            float _dn = ((dates.Needed - dates.Tokens) / dates.Daily);
+            float _dn = (dates.Needed - dates.Tokens) / dates.Daily;
             DaysNeeded = (uint)TimeSpan.FromDays(Math.Ceiling(_dn)).Days;
         }
     }
