@@ -22,6 +22,5 @@ namespace STO_Event_Calendar
 
         [Option('j', "json", HelpText = "Save data as a json file.")] // This feature probably has no real-world use, just implimenting this for fun.
         public bool Json { get; set; }
-
     }
 }
