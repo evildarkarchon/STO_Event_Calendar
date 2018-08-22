@@ -5,29 +5,27 @@ namespace STO_Event_Calendar
     class Calc
     {
         public TimeSpan EndDiff;
-        public DateTimeOffset End, Reset;
-        public DateTimeOffset Now = DateTimeOffset.Now;
+#pragma warning disable CS0649
+        public DateTime End, Reset;
+        public DateTime Now = DateTime.Now;
         public uint Needed, Tokens, Daily;
-        private Options o;
         private Date Dates;
-        public uint DaysNeeded;
+        public TimeSpan DaysNeeded;
 
-        public DateTimeOffset DateNeeded()
+        public DateTime DateNeeded()
         {
-            TimeSpan Days = TimeSpan.FromDays(EndDiff.Days);
-            return Now + Days;
+            return Now + DaysNeeded;
         }
 
-        public DateTimeOffset FinalDay()
+        public DateTime FinalDay()
         {
-            TimeSpan Days = TimeSpan.FromDays(DaysNeeded);
-            DateTimeOffset Day = End - Days;
+            DateTime Day = End - DaysNeeded;
             return Day;
         }
 
         public Calc(string end, float reset, uint needed, uint tokens, uint daily)
         {
-            if (DateTimeOffset.TryParse(end, out DateTimeOffset End))
+            if (DateTime.TryParse(end, out End))
             {
                 EndDiff = End - Now;
             }
@@ -35,19 +33,26 @@ namespace STO_Event_Calendar
             {
                 throw new FormatException("Unable to parse date.");
             }
-
-            Reset = Now + TimeSpan.FromHours(reset);
+            if (reset > 0)
+            {
+                Reset = Now + TimeSpan.FromHours(reset);
+            }
+            else
+            {
+                Reset = Now;
+                throw new ArgumentException("Reset time must be greater than 0.");
+            }
             Needed = needed;
             Tokens = tokens;
             Daily = daily;
 
             float _dn = (needed - tokens) / daily;
-            DaysNeeded = (uint)TimeSpan.FromDays(Math.Ceiling(_dn)).Days;
+            DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
         }
 
         public Calc(Options o)
         {
-            if (DateTimeOffset.TryParse(o.EndDate, out DateTimeOffset End))
+            if (DateTime.TryParse(o.EndDate, out End))
             {
                 EndDiff = End - Now;
             }
@@ -55,16 +60,25 @@ namespace STO_Event_Calendar
             {
                 throw new FormatException("Unable to parse date.");
             }
-
             Reset = Now + TimeSpan.FromHours(o.Reset);
 
+            if (o.Reset > 0)
+            {
+                Reset = Now + TimeSpan.FromHours(o.Reset);
+            }
+            else
+            {
+                Reset = Now;
+                throw new ArgumentException("Reset time must be greater than 0.");
+            }
+
             float _dn = (o.TotalTokens - o.TokensClaimed) / o.DailyTokens;
-            DaysNeeded = (uint)TimeSpan.FromDays(Math.Ceiling(_dn)).Days;
+            DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
         }
 
         public Calc(Date dates)
         {
-            if (DateTimeOffset.TryParse(dates.EndDate, out DateTimeOffset End))
+            if (DateTime.TryParse(dates.EndDate, out End))
             {
                 EndDiff = End - Now;
             }
@@ -73,11 +87,19 @@ namespace STO_Event_Calendar
                 throw new FormatException("Unable to parse date.");
             }
 
-            Reset = Now + TimeSpan.FromHours(dates.Reset);
+            if (Dates.Reset > 0)
+            {
+                Reset = Now + TimeSpan.FromHours(dates.Reset);
+            }
+            else
+            {
+                Reset = Now;
+                throw new ArgumentException("Reset time must be greater than 0.");
+            }
             Dates = dates;
 
             float _dn = (dates.Needed - dates.Tokens) / dates.Daily;
-            DaysNeeded = (uint)TimeSpan.FromDays(Math.Ceiling(_dn)).Days;
+            DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
         }
     }
 }
