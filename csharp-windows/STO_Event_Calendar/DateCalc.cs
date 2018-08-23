@@ -4,30 +4,32 @@ namespace STO_Event_Calendar
 {
     class Calc
     {
-        public TimeSpan EndDiff;
-#pragma warning disable CS0649
-        public DateTime End, Reset;
-        public DateTime Now = DateTime.Now;
-        public uint Needed, Tokens, Daily;
+        private DateTime _End;
+        private DateTime _Now = DateTime.Now;
+        private uint _Needed, _Tokens, _Daily;
         private Date Dates;
-        public TimeSpan DaysNeeded;
+
+        public DateTime Reset { get; }
+        public TimeSpan DaysNeeded { get; }
+        public TimeSpan EndDiff { get; }
+        public DateTime End { get { return _End; } }
 
         public DateTime DateNeeded()
         {
-            return Now + DaysNeeded;
+            return _Now + DaysNeeded;
         }
 
         public DateTime FinalDay()
         {
-            DateTime Day = End - DaysNeeded;
+            DateTime Day = _End - DaysNeeded;
             return Day;
         }
 
         public Calc(string end, float reset, uint needed, uint tokens, uint daily)
         {
-            if (DateTime.TryParse(end, out End))
+            if (DateTime.TryParse(end, out _End))
             {
-                EndDiff = End - Now;
+                EndDiff = _End - _Now;
             }
             else
             {
@@ -35,16 +37,16 @@ namespace STO_Event_Calendar
             }
             if (reset > 0)
             {
-                Reset = Now + TimeSpan.FromHours(reset);
+                Reset = _Now + TimeSpan.FromHours(reset);
             }
             else
             {
-                Reset = Now;
+                Reset = _Now;
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
-            Needed = needed;
-            Tokens = tokens;
-            Daily = daily;
+            _Needed = needed;
+            _Tokens = tokens;
+            _Daily = daily;
 
             float _dn = (needed - tokens) / daily;
             DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
@@ -52,23 +54,23 @@ namespace STO_Event_Calendar
 
         public Calc(ref Options o)
         {
-            if (DateTime.TryParse(o.EndDate, out End))
+            if (DateTime.TryParse(o.EndDate, out _End))
             {
-                EndDiff = End - Now;
+                EndDiff = _End - _Now;
             }
             else
             {
                 throw new FormatException("Unable to parse date.");
             }
-            Reset = Now + TimeSpan.FromHours(o.Reset);
+            Reset = _Now + TimeSpan.FromHours(o.Reset);
 
             if (o.Reset > 0)
             {
-                Reset = Now + TimeSpan.FromHours(o.Reset);
+                Reset = _Now + TimeSpan.FromHours(o.Reset);
             }
             else
             {
-                Reset = Now;
+                Reset = _Now;
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
 
@@ -78,9 +80,9 @@ namespace STO_Event_Calendar
 
         public Calc(ref Date dates)
         {
-            if (DateTime.TryParse(dates.EndDate, out End))
+            if (DateTime.TryParse(dates.EndDate, out _End))
             {
-                EndDiff = End - Now;
+                EndDiff = _End - _Now;
             }
             else
             {
@@ -89,11 +91,11 @@ namespace STO_Event_Calendar
 
             if (Dates.Reset > 0)
             {
-                Reset = Now + TimeSpan.FromHours(dates.Reset);
+                Reset = _Now + TimeSpan.FromHours(dates.Reset);
             }
             else
             {
-                Reset = Now;
+                Reset = _Now;
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
             Dates = dates;
