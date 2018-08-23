@@ -5,7 +5,7 @@ namespace STO_Event_Calendar
 {
     class Comp
     {
-        public static Calc CalcDateCalc(ParserResult<Options> result, bool UseOptions = true)
+        public static Calc CalcDateCalc(ref ParserResult<Options> result, bool UseOptions = true)
         {
             Date Dates;
 
@@ -79,7 +79,7 @@ namespace STO_Event_Calendar
 
             if (UseOptions == true && Opts != null)
             {
-                return new Calc(Opts);
+                return new Calc(ref Opts);
             }
             else if (UseOptions == false && result.Tag == ParserResultType.Parsed)
             {

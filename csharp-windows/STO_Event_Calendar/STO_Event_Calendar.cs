@@ -30,7 +30,7 @@ namespace STO_Event_Calendar
 #pragma warning disable CS0168 // Variable is declared but never used
 #pragma warning disable CS8321 // Local function is declared but never used
             
-            Calc DateCalc = Comp.CalcDateCalc(result);
+            Calc DateCalc = Comp.CalcDateCalc(ref result);
                        
             DateTime DateNeeded = DateCalc.DateNeeded();
             DateTime FinalDay = DateCalc.FinalDay();

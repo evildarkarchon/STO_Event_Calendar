@@ -59,6 +59,7 @@
     <Compile Include="Comp.cs" />
     <Compile Include="DateCalc.cs" />
     <Compile Include="CommandLine.cs" />
+    <Compile Include="Json.cs" />
     <Compile Include="STO_Event_Calendar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
