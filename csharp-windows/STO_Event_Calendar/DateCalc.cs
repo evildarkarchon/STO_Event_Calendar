@@ -76,7 +76,7 @@ namespace STO_Event_Calendar
             DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
         }
 
-        public Calc(Date dates)
+        public Calc(ref Date dates)
         {
             if (DateTime.TryParse(dates.EndDate, out End))
             {

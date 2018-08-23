@@ -123,7 +123,7 @@ namespace STO_Event_Calendar
                     throw new ArgumentException("You must enter the number of tokens you get on a daily basis.");
                 }
 
-                return new Calc(Dates);
+                return new Calc(ref Dates);
             }
             else
             {
