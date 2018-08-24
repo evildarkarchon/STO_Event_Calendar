@@ -22,8 +22,9 @@ namespace STO_Event_Calendar
     {
         public static void OutJSON(ref Calc DateCalc)
         {
-            StringBuilder Path = new StringBuilder(Directory.GetCurrentDirectory());
-            Path.Append("\\STO_Event_Calendar.json");
+            //StringBuilder Path = new StringBuilder(Directory.GetCurrentDirectory());
+            //Path.Append("\\STO_Event_Calendar.json");
+            string Path = $"{Directory.GetCurrentDirectory()}\\STO_Event_Calendar.json";
             JSONInfo Base = new JSONInfo()
             {
                 Now = DateCalc.Now,
@@ -36,7 +37,7 @@ namespace STO_Event_Calendar
                 DateNeeded = DateCalc.DateNeeded()
             };
             
-            File.WriteAllText(Path.ToString(), JsonConvert.SerializeObject(Base, Formatting.Indented));
+            File.WriteAllText(Path, JsonConvert.SerializeObject(Base, Formatting.Indented));
         }
 
         public static void PrintJSON(ref Calc DateCalc)
