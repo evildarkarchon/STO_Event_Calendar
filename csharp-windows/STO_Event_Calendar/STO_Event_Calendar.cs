@@ -87,6 +87,13 @@ namespace STO_Event_Calendar
             }
 
             result.WithParsed<Options>(options => Announce());
+            result.WithParsed<Options>(options =>
+            {
+                if (options.Json)
+                {
+                    ConvertJSON.OutJSON(ref DateCalc);
+                }
+            });
         }
     }
 }

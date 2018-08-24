@@ -1,29 +1,42 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using Newtonsoft.Json;
-using CommandLine;
+using System.Collections.Generic;
 
 namespace STO_Event_Calendar
 {
+    struct JSONInfo
+    {
+        public DateTime Now { get; set; }
+        public DateTime Reset { get; set; }
+        public uint DaysNeeded { get; set; }
+        public uint EndDiff { get; set; }
+        public DateTime End { get; set; }
+        public Dictionary<string, uint> AllTokens { get; set; }
+        public DateTime FinalDay { get; set; }
+        public DateTime DateNeeded { get; set; }
+    }
+
     class ConvertJSON
     {
-        public static void OutJSON(ref ParserResult<Options> result, Calc DateCalc, bool UseOptions = true)
+        public static void OutJSON(ref Calc DateCalc)
         {
-            Options Opts = null;
-            if (result.Tag == ParserResultType.Parsed)
+            StringBuilder Path = new StringBuilder(Directory.GetCurrentDirectory());
+            Path.Append("\\STO_Event_Calendar.json");
+            JSONInfo Base = new JSONInfo()
             {
-                Opts = ((Parsed<Options>)result).Value;
-            }
-            else
-            {
-                UseOptions = false;
-            }
-
-            if (UseOptions == true &&
-                Opts.DailyTokens == default(uint) &&
-                string.IsNullOrEmpty(Opts.EndDate) &&
-                Opts.Reset == default(float) &&
-                Opts.TokensClaimed == default(uint) &&
-                Opts.TotalTokens == default(uint)) { UseOptions = false; }
+                Now = DateCalc.Now,
+                Reset = DateCalc.Reset,
+                DaysNeeded = (uint)DateCalc.DaysNeeded.Days,
+                EndDiff = (uint)DateCalc.EndDiff.Days,
+                End = DateCalc.End,
+                AllTokens = DateCalc.AllTokens,
+                FinalDay = DateCalc.FinalDay(),
+                DateNeeded = DateCalc.DateNeeded()
+            };
+            
+            File.WriteAllText(Path.ToString(), JsonConvert.SerializeObject(Base, Formatting.Indented));
         }
     }
 }
