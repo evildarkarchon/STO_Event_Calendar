@@ -38,5 +38,24 @@ namespace STO_Event_Calendar
             
             File.WriteAllText(Path.ToString(), JsonConvert.SerializeObject(Base, Formatting.Indented));
         }
+
+        public static void PrintJSON(ref Calc DateCalc)
+        {
+            JSONInfo Base = new JSONInfo()
+            {
+                Now = DateCalc.Now,
+                Reset = DateCalc.Reset,
+                DaysNeeded = (uint)DateCalc.DaysNeeded.Days,
+                EndDiff = (uint)DateCalc.EndDiff.Days,
+                End = DateCalc.End,
+                AllTokens = DateCalc.AllTokens,
+                FinalDay = DateCalc.FinalDay(),
+                DateNeeded = DateCalc.DateNeeded()
+            };
+
+            string output = JsonConvert.SerializeObject(Base, Formatting.Indented);
+            Console.WriteLine("Here's the raw data (in JSON form):");
+            Console.WriteLine(output);
+        }
     }
 }

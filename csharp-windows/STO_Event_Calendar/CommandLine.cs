@@ -24,5 +24,8 @@ namespace STO_Event_Calendar
 
         [Option('q', "quiet", HelpText = "Don't actually print anything on the console (Best combined with --json)")]
         public bool Quiet { get; set; }
+
+        [Option('p', "print-json", HelpText = "Print the json to the console instead of writing it to a file.")]
+        public bool PrintJSON { get; set; }
     }
 }

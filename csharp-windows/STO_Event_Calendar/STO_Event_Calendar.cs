@@ -86,7 +86,7 @@ namespace STO_Event_Calendar
                 Console.WriteLine("The event ends on {0}", DateCalc.End.ToShortDateString());
             }
 
-            result.WithParsed<Options>(options =>
+            result.WithParsed(options =>
             {
                 if (!options.Quiet)
                 {
@@ -94,11 +94,20 @@ namespace STO_Event_Calendar
                 }
             }
             );
-            result.WithParsed<Options>(options =>
+            result.WithParsed(options =>
             {
-                if (options.Json)
+                if (options.Json && ! options.PrintJSON)
                 {
                     ConvertJSON.OutJSON(ref DateCalc);
+                }
+                else if (options.PrintJSON)
+                {
+                    ConvertJSON.PrintJSON(ref DateCalc);
+                }
+                else if (options.Json && options.PrintJSON)
+                {
+                    ConvertJSON.OutJSON(ref DateCalc);
+                    ConvertJSON.PrintJSON(ref DateCalc);
                 }
             }
             );
