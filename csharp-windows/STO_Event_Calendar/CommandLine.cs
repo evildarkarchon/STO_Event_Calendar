@@ -19,7 +19,7 @@ namespace STO_Event_Calendar
         [Option('r', "reset", HelpText = "Amount of hours until the daily quests reset.")]
         public float Reset { get; set; }
 
-        [Option('j', "json", HelpText = "Save data as a json file.")] // This feature probably has no real-world use, just implimenting this for fun.
+        [Option('j', "json", HelpText = "Save data as a json file.")] // This feature is to help me debug any possible data problems.
         public bool Json { get; set; }
 
         [Option('q', "quiet", HelpText = "Don't actually print anything on the console (Best combined with --json)")]
