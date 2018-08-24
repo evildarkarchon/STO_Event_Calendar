@@ -6,4 +6,4 @@ This is a learning project based on a python script created by [/u/OfAuguryDefia
 
 There is a heavily modified version of the python script and the beginnings of a rust version, with plans to make a ruby version as well.
 
-The C# version of this application requires at least .NET Framework v4.6.1 to be installed.
+The C# version of this application is writen with .NET Framework v4.6.1 as its target.
