@@ -27,8 +27,6 @@ namespace STO_Event_Calendar
                 var errors = ((NotParsed<Options>)result).Errors;
             }
             */
-#pragma warning disable CS0168 // Variable is declared but never used
-#pragma warning disable CS8321 // Local function is declared but never used
             
             Calc DateCalc = Comp.CalcDateCalc(ref result);
                        
@@ -75,11 +73,11 @@ namespace STO_Event_Calendar
                 Console.WriteLine("Days needed to complete the event: {0}", DateCalc.DaysNeeded.Days);
                 AnnounceEnd(DateCalc.EndDiff);
 
-                if (FinalDay < DateTime.Now)
+                if (FinalDay < DateCalc.Now)
                 {
                     Console.WriteLine("There is no way to complete this event, sorry.");
                 }
-                else if (FinalDay.Day == DateTime.Now.Day)
+                else if (FinalDay.Day == DateCalc.Now.Day)
                 {
                     Console.WriteLine("You have to do dailies every day to be able to get enough tokens to finish the event.");
                 }
@@ -89,9 +87,6 @@ namespace STO_Event_Calendar
             }
 
             result.WithParsed<Options>(options => Announce());
-
-#pragma warning restore CS0168 // Variable is declared but never used
-#pragma warning restore CS8321 // Local function is declared but never used
         }
     }
 }
