@@ -6,7 +6,6 @@ namespace STO_Event_Calendar
     class Calc
     {
         private DateTime _End;
-        private DateTime _Now = DateTime.Now;
         private Date Dates;
 
         public DateTime Reset { get; }
@@ -14,10 +13,11 @@ namespace STO_Event_Calendar
         public TimeSpan EndDiff { get; }
         public DateTime End { get { return _End; } }
         public Dictionary<string, uint> AllTokens { get; }
+        public DateTime Now { get; } = DateTime.Now;
 
         public DateTime DateNeeded()
         {
-            return _Now + DaysNeeded;
+            return Now + DaysNeeded;
         }
 
         public DateTime FinalDay()
@@ -30,7 +30,7 @@ namespace STO_Event_Calendar
         {
             if (DateTime.TryParse(end, out _End))
             {
-                EndDiff = _End - _Now;
+                EndDiff = _End - Now;
             }
             else
             {
@@ -38,11 +38,11 @@ namespace STO_Event_Calendar
             }
             if (reset > 0)
             {
-                Reset = _Now + TimeSpan.FromHours(reset);
+                Reset = Now + TimeSpan.FromHours(reset);
             }
             else
             {
-                Reset = _Now;
+                Reset = Now;
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
             AllTokens = new Dictionary<string, uint>()
@@ -60,21 +60,21 @@ namespace STO_Event_Calendar
         {
             if (DateTime.TryParse(o.EndDate, out _End))
             {
-                EndDiff = _End - _Now;
+                EndDiff = _End - Now;
             }
             else
             {
                 throw new FormatException("Unable to parse date.");
             }
-            Reset = _Now + TimeSpan.FromHours(o.Reset);
+            Reset = Now + TimeSpan.FromHours(o.Reset);
 
             if (o.Reset > 0)
             {
-                Reset = _Now + TimeSpan.FromHours(o.Reset);
+                Reset = Now + TimeSpan.FromHours(o.Reset);
             }
             else
             {
-                Reset = _Now;
+                Reset = Now;
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
 
@@ -96,7 +96,7 @@ namespace STO_Event_Calendar
         {
             if (DateTime.TryParse(dates.EndDate, out _End))
             {
-                EndDiff = _End - _Now;
+                EndDiff = _End - Now;
             }
             else
             {
@@ -105,11 +105,11 @@ namespace STO_Event_Calendar
 
             if (Dates.Reset > 0)
             {
-                Reset = _Now + TimeSpan.FromHours(dates.Reset);
+                Reset = Now + TimeSpan.FromHours(dates.Reset);
             }
             else
             {
-                Reset = _Now;
+                Reset = Now;
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
             Dates = dates;

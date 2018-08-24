@@ -69,7 +69,7 @@ namespace STO_Event_Calendar
 
             void Announce()
             {
-                Console.WriteLine("Todays Date: {0}", DateTime.Now.ToShortDateString());
+                Console.WriteLine("Todays Date: {0}", DateCalc.Now.ToShortDateString());
                 Console.WriteLine("Daily Quests will be available on {0} at {1}", DateCalc.Reset.ToShortDateString(), DateCalc.Reset.ToShortTimeString());
                 Console.WriteLine("Estimated date of completion: {0}", DateCalc.DateNeeded().ToShortDateString());
                 Console.WriteLine("Days needed to complete the event: {0}", DateCalc.DaysNeeded.Days);
