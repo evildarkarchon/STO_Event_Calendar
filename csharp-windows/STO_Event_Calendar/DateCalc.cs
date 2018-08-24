@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace STO_Event_Calendar
 {
@@ -6,13 +7,13 @@ namespace STO_Event_Calendar
     {
         private DateTime _End;
         private DateTime _Now = DateTime.Now;
-        private uint _Needed, _Tokens, _Daily;
         private Date Dates;
 
         public DateTime Reset { get; }
         public TimeSpan DaysNeeded { get; }
         public TimeSpan EndDiff { get; }
         public DateTime End { get { return _End; } }
+        public Dictionary<string, uint> AllTokens { get; }
 
         public DateTime DateNeeded()
         {
@@ -44,9 +45,12 @@ namespace STO_Event_Calendar
                 Reset = _Now;
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
-            _Needed = needed;
-            _Tokens = tokens;
-            _Daily = daily;
+            AllTokens = new Dictionary<string, uint>()
+            {
+                { "TokensNeeded", needed },
+                { "TokensClaimed", tokens },
+                { "DailyTokens", daily }
+            };
 
             float _dn = (needed - tokens) / daily;
             DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
@@ -74,6 +78,16 @@ namespace STO_Event_Calendar
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
 
+            //AllTokens["TokensNeeded"] = o.TotalTokens;
+            //AllTokens["TokensClaimed"] = o.TokensClaimed;
+            //AllTokens["DailyTokens"] = o.DailyTokens;
+            AllTokens = new Dictionary<string, uint>()
+            {
+                { "TokensNeeded", o.TotalTokens },
+                { "TokensClaimed", o.TokensClaimed },
+                { "DailyTokens", o.DailyTokens }
+            };
+
             float _dn = (o.TotalTokens - o.TokensClaimed) / o.DailyTokens;
             DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
         }
@@ -99,6 +113,16 @@ namespace STO_Event_Calendar
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
             Dates = dates;
+
+            //AllTokens["TokensNeeded"] = dates.Needed;
+            //AllTokens["TokensClaimed"] = dates.Tokens;
+            //AllTokens["DailyTokens"] = dates.Daily;
+            AllTokens = new Dictionary<string, uint>()
+            {
+                { "TokensNeeded", dates.Needed },
+                { "TokensClaimed", dates.Tokens },
+                { "DailyTokens", dates.Daily }
+            };
 
             float _dn = (dates.Needed - dates.Tokens) / dates.Daily;
             DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
