@@ -8,7 +8,6 @@ pub struct Times {
     pub end: NaiveDate,
     pub reset_hours: f64,
     pub current_dt: chrono::NaiveDateTime,
-    pub current_date: chrono::NaiveDate,
     pub days_needed: chrono::Duration
     }
 
@@ -18,7 +17,7 @@ impl Times {
     }
 
     pub fn remaining(&self) -> chrono::Duration {
-        NaiveDate::signed_duration_since(self.end, self.current_date)
+        NaiveDate::signed_duration_since(self.end, self.current_dt.date())
     }
 
     pub fn final_day(&self) -> chrono::NaiveDate {

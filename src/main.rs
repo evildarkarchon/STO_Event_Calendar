@@ -68,8 +68,7 @@ fn main() {
                                                                                 .ok()
                                                                                 .unwrap(),
         reset_hours: parse_number(&args, "reset"),
-        current_dt: Utc::now().naive_utc(),
-        current_date: Utc::now().naive_utc().date(),
+        current_dt: Utc::now().naive_local(),
         days_needed: Duration::days((total - claimed) as i64 / daily as i64)
     };
 
@@ -83,11 +82,11 @@ fn main() {
     assert!(remaining.num_days() > 0, "remaining returned a negative number or is 0. remaining value is: {}", remaining.num_days());
     assert!(times.reset_hours as i64 > 0, "Reset time must be a positive number.");
 
-    println!("Today's Date is {}", times.current_date.format(DATE_STR));
+    println!("Today's Date is {}", times.current_dt.date().format(DATE_STR));
     println!("Days remaining in event is: {}", remaining.num_days());
     println!("Daily quests reset at approximately: {}", reset.format(RESET_STR));
 
-    if final_day == times.current_date {
+    if final_day == times.current_dt.date() {
         println!("You must start the event today to acquire the required number of tokens.");
     } else {
         println!("Final day to start the event is: {}", final_day.format(DATE_STR));
