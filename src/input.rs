@@ -1,5 +1,3 @@
-extern crate clap;
-
 use clap::ArgMatches;
 
 pub fn input_number(cmd: &ArgMatches, cmdname: &str) -> f64 {

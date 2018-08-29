@@ -1,23 +1,23 @@
 extern crate chrono;
-extern crate clap;
+#[allow(unused_imports)]#[macro_use] extern crate clap;
 extern crate time;
+#[allow(unused_imports)]#[macro_use] extern crate serde_derive;
+extern crate serde_json;
+#[allow(unused_imports)]#[macro_use] extern crate text_io;
 
-mod parse_number;
 mod times;
+mod json;
 
-use chrono::prelude::*;
-use clap::{Arg, App};
-use time::Duration;
-use times::Times;
+#[allow(unused_imports)]use chrono::prelude::*;
+#[allow(unused_imports)]use clap::{Arg, App};
+#[allow(unused_imports)]use time::Duration;
 
 fn main() {
-    let parse_number = parse_number::parse_number;
-
     const DATE_STR: &'static str = "%B %d %Y";
     //const MIN_DATE_STR: &'static str = "%B %d";
     const RESET_STR: &'static str = "%B %d %Y at %I:%M %p";
     const DATE_FORMAT: &'static str = "%m/%d/%Y";
-
+    /*
     let args = App::new("STO Event Calendar")
                         .version("0.1.0")
                         .author("Andrew Nelson <evildarkarchon@gmail.com>")
@@ -58,20 +58,33 @@ fn main() {
                             .value_name("RESET")
                             .help("Number of hours until the daily quest(s) reset."))
                         .get_matches();
-
+    */
+    let args = clap_app!(STO_Event_Calendar =>
+        (version: "1.0")
+        (author: "Andrew Nelson <andrew@andrewnelson.org>")
+        (about: "Calculator for Star Trek Online in-game events.\n
+        Based on a python script made by /u/AuguryDefiant on reddit")
+        (@arg DAILY_TOKENS: -d --("daily-tokens") +takes_value "The amount of tokens you can receive from daily quests.")
+        (@arg TOTAL_TOKENS: -t --("total-tokens") +takes_value "The amount of tokens you need to complete the event.")
+        (@arg TOKENS_CLAIMED: -c --("tokens-claimed") +takes_value "The amount of tokens you have claimed.")
+        (@arg END: -e --("end-date") +takes_value "Date that the event ends, in MM/DD/YYYY format (yes, I'm an American).")
+        (@arg RESET: -r --reset +takes_value "The amount of hours (can use decimals for partial hours) until the daily quests reset.")
+    );
+    /*
     let claimed = parse_number(&args, "claimed");
     let total = parse_number(&args, "total");
     let daily = parse_number(&args, "daily");
+    */
 
-    let times = Times {
+    /*let times = Times {
         end: NaiveDate::parse_from_str(args.value_of("end").unwrap(), DATE_FORMAT)
                                                                                 .ok()
                                                                                 .unwrap(),
         reset_hours: parse_number(&args, "reset"),
         current_dt: Utc::now().naive_local(),
         days_needed: Duration::days((total - claimed) as i64 / daily as i64)
-    };
-
+    };*/
+    /*
     let reset = times.reset();
 
     let remaining = times.remaining();
@@ -91,4 +104,5 @@ fn main() {
     } else {
         println!("Final day to start the event is: {}", final_day.format(DATE_STR));
     }
+    */
 }

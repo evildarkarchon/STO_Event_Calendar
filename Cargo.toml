@@ -1,5 +1,5 @@
 [package]
-name = "STO_Event_Calculator"
+name = "STO_Event_Calendar"
 version = "0.1.0"
 authors = ["Andrew Nelson <andrew@andrewnelson.org>"]
 
@@ -7,5 +7,7 @@ authors = ["Andrew Nelson <andrew@andrewnelson.org>"]
 clap = "2.31.0"
 chrono = "0.4"
 time = "0.1"
+serde = "1.0"
 serde_json = "1.0"
+serde_derive = "1.0"
 text_io = "0.1.7"
