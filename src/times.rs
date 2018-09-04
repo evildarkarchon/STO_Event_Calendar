@@ -3,34 +3,37 @@ use chrono::prelude::*;
 use time::Duration;
 
 pub struct Times<'a> {
-    pub end: &'a NaiveDate,
+    pub end: &'a Date<Local>,
     pub reset_hours: &'a f32,
     pub current_dt: DateTime<Local>,
-    pub days_needed: Duration,
+    pub max_date: Duration,
     pub tokens_needed: &'a u32,
     pub tokens_claimed: &'a u32,
     pub daily_tokens: &'a u32
     }
 
 impl<'a> Times<'a> {
-    pub fn reset(&self) -> DateTime<Local> {
+    pub fn reset_time(&self) -> DateTime<Local> {
         self.current_dt + Duration::hours(*self.reset_hours as i64)
     }
 
     pub fn remaining(&self) -> Duration {
-        NaiveDate::signed_duration_since(*self.end, self.current_dt.date().naive_local())
+        let out = Date::signed_duration_since(*self.end, self.current_dt.date());
+        assert!(out.num_days() > 0, "The days remaining calculation");
+        out
     }
 
-    pub fn final_day(&self) -> NaiveDate {
-        *self.end - self.days_needed
+    pub fn final_day(&self) -> Date<Local> {
+        *self.end - self.max_date
     }
 }
 
-pub fn build_times<'a>(end: &'a NaiveDate, reset_hours: &'a f32, daily_tokens: &'a u32, tokens_needed: &'a u32, tokens_claimed: &'a u32) -> Times<'a> {
+pub fn build_times<'a>(end: &'a Date<Local>, reset_hours: &'a f32, daily_tokens: &'a u32, tokens_needed: &'a u32, tokens_claimed: &'a u32) -> Times<'a> {
     let days = ((*tokens_needed - *tokens_claimed) - *daily_tokens) as f64;
     let days = days.ceil();
     let days = days as i64;
-    let days = Duration::hours(days);
+    let days = Duration::days(days);
+    assert!(days.num_days() > 0, "The days needed calculation returned a negative number.");
     let out = Times {
         end,
         reset_hours,
@@ -38,7 +41,7 @@ pub fn build_times<'a>(end: &'a NaiveDate, reset_hours: &'a f32, daily_tokens: &
         tokens_claimed,
         tokens_needed,
         daily_tokens,
-        days_needed: days
+        max_date: days
     };
     out
 }
