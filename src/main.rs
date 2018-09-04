@@ -5,104 +5,106 @@ extern crate time;
 extern crate serde_json;
 #[allow(unused_imports)]#[macro_use] extern crate text_io;
 
+
 mod times;
 mod json;
+mod input;
 
 #[allow(unused_imports)]use chrono::prelude::*;
 #[allow(unused_imports)]use clap::{Arg, App};
 #[allow(unused_imports)]use time::Duration;
+#[allow(unused_imports)]use serde_json::{Error, Value};
 
 fn main() {
-    const DATE_STR: &'static str = "%B %d %Y";
+    #[allow(dead_code)]const DATE_STR: &'static str = "%B %d %Y";
     //const MIN_DATE_STR: &'static str = "%B %d";
-    const RESET_STR: &'static str = "%B %d %Y at %I:%M %p";
+    #[allow(dead_code)]const RESET_STR: &'static str = "%B %d %Y at %I:%M %p";
     const DATE_FORMAT: &'static str = "%m/%d/%Y";
-    /*
-    let args = App::new("STO Event Calendar")
-                        .version("0.1.0")
-                        .author("Andrew Nelson <evildarkarchon@gmail.com>")
-                        .about("Calculates if you have a chance to complete a Star Trek Online event and how long it will take.")
-                        .arg(Arg::with_name("daily")
-                            .short("d")
-                            .long("daily-tokens")
-                            .value_name("DAILY")
-                            .takes_value(true)
-                            .required(true)
-                            .help("Number of tokens awarded per day."))
-                        .arg(Arg::with_name("total")
-                            .short("t")
-                            .long("total-tokens")
-                            .value_name("TOTAL")
-                            .takes_value(true)
-                            .required(true)
-                            .help("Total number of tokens require to complete the event."))
-                        .arg(Arg::with_name("claimed")
-                            .short("c")
-                            .long("tokens-claimed")
-                            .value_name("TOKENS")
-                            .takes_value(true)
-                            .required(true)
-                            .help("Number of tokens claimed so far."))
-                        .arg(Arg::with_name("end")
-                            .short("e")
-                            .long("end-date")
-                            .value_name("END")
-                            .takes_value(true)
-                            .required(true)
-                            .help("Date that the event ends (in MM/DD/YYYY format)."))
-                        .arg(Arg::with_name("reset")
-                            .short("r")
-                            .long("reset")
-                            .takes_value(true)
-                            .required(true)
-                            .value_name("RESET")
-                            .help("Number of hours until the daily quest(s) reset."))
-                        .get_matches();
-    */
+    
     let args = clap_app!(STO_Event_Calendar =>
         (version: "1.0")
         (author: "Andrew Nelson <andrew@andrewnelson.org>")
         (about: "Calculator for Star Trek Online in-game events.\n
         Based on a python script made by /u/AuguryDefiant on reddit")
-        (@arg DAILY_TOKENS: -d --("daily-tokens") +takes_value "The amount of tokens you can receive from daily quests.")
-        (@arg TOTAL_TOKENS: -t --("total-tokens") +takes_value "The amount of tokens you need to complete the event.")
-        (@arg TOKENS_CLAIMED: -c --("tokens-claimed") +takes_value "The amount of tokens you have claimed.")
-        (@arg END: -e --("end-date") +takes_value "Date that the event ends, in MM/DD/YYYY format (yes, I'm an American).")
-        (@arg RESET: -r --reset +takes_value "The amount of hours (can use decimals for partial hours) until the daily quests reset.")
-    );
-    /*
-    let claimed = parse_number(&args, "claimed");
-    let total = parse_number(&args, "total");
-    let daily = parse_number(&args, "daily");
-    */
+        (@arg daily_tokens: -d --("daily-tokens") +takes_value "The amount of tokens you can receive from daily quests.")
+        (@arg total_tokens: -t --("total-tokens") +takes_value "The amount of tokens you need to complete the event.")
+        (@arg tokens_claimed: -c --("tokens-claimed") +takes_value "The amount of tokens you have claimed.")
+        (@arg end_date: -e --("end-date") +takes_value "Date that the event ends, in MM/DD/YYYY format (yes, I'm an American).")
+        (@arg reset: -r --reset +takes_value "The amount of hours (can use decimals for partial hours) until the daily quests reset.")
+        (@arg write_json: -j --("write-json") +takes_value "Write the raw data to a file in JSON format.")
+        (@arg print_json: -p --("print-json") "Print the raw data to the console.")
+    ).get_matches();
 
-    /*let times = Times {
-        end: NaiveDate::parse_from_str(args.value_of("end").unwrap(), DATE_FORMAT)
-                                                                                .ok()
-                                                                                .unwrap(),
-        reset_hours: parse_number(&args, "reset"),
-        current_dt: Utc::now().naive_local(),
-        days_needed: Duration::days((total - claimed) as i64 / daily as i64)
-    };*/
-    /*
-    let reset = times.reset();
+    let _tokens_claimed: u32 = 1;
+    let _total_tokens: u32 = 1;
+    let _daily_tokens: u32 = 1;
+    let reset: f32 = 20.0;
+    let end_date: Date<Local> = Local::now().date() + Duration::days(20);
 
+    if args.is_present("daily_tokens") {
+        let _daily_tokens = input::input_number_u32(&args, "daily_tokens");
+    }
+    else {
+        let _daily_tokens: u32 = input::ask("Input the number of tokens can you receive on a daily basis: ").parse().ok().unwrap();
+    }
+
+    if args.is_present("total_tokens") {
+        let _total_tokens = input::input_number_u32(&args, "total_tokens");
+    }
+    else {
+        let _total_tokens: u32 = input::ask("Input the number of tokens needed to complete the project: ").parse().ok().unwrap();
+    }
+
+    if args.is_present("tokens_claimed") {
+        let _tokens_claimed: u32 = input::input_number_u32(&args, "tokens_claimed");
+    }
+    else {
+        let _tokens_claimed: u32 = input::ask("Input the number of tokens you have claimed so far: ").parse().ok().unwrap();
+    }
+
+    if args.is_present("reset") {
+        let _reset: f32 = input::input_number_f32(&args, "reset");
+    }
+    else {
+        let _reset: f32 = input::ask("Input the number of hours until the dailies reset: ").parse().ok().unwrap();
+    }
+
+    if args.is_present("end_date") {
+        let _end_date = NaiveDateTime::parse_from_str(args.value_of("end_date").unwrap(), DATE_FORMAT);
+        let offset = TimeZone::offset_from_local_datetime(&Local, &_end_date.unwrap());
+        let end_date = TimeZone::datetime_from_str(&offset.unwrap(), &args.value_of("end_date").unwrap(), &DATE_FORMAT);
+        assert!(end_date.is_ok(), "Couldn't parse the end date from user input.");
+        let _end_date = end_date.unwrap().date();
+    }
+    else {
+        print!("Input the date that the event ends.");
+        let _end_date: String = read!("{}\n");
+        let _end_date = NaiveDateTime::parse_from_str(&_end_date, DATE_FORMAT);
+        let offset = TimeZone::offset_from_local_datetime(&Local, &_end_date.unwrap());
+        let _end_date = TimeZone::datetime_from_str(&offset.unwrap(), &_end_date.unwrap().to_string().as_str(), &DATE_FORMAT);
+        assert!(_end_date.is_ok(), "Couldn't parse the end date from user input.");
+        let _end_date = _end_date.unwrap().date();
+    }
+
+    let times = times::build_times(&end_date, &reset, &_daily_tokens, &_total_tokens, &_tokens_claimed);
+    let reset_time = times.reset_time();
     let remaining = times.remaining();
-
     let final_day = times.final_day();
-
-    assert!(times.days_needed.num_days() as i64 > 0, "times.days_needed returned a negative number or is 0. times.days_needed value is: {}", times.days_needed.num_days() as i64);
+    let _jsondata = json::build_jsondata(&times, &remaining, &reset_time, &final_day);
+    
+    #[allow(unused_must_use)]
+    json::json_out(&args, &_jsondata);
+    assert!(times.max_date.num_days() as i32 > 0, "times.days_needed returned a negative number or is 0. times.days_needed value is: {}", times.max_date.num_days() as i32);
     assert!(remaining.num_days() > 0, "remaining returned a negative number or is 0. remaining value is: {}", remaining.num_days());
-    assert!(times.reset_hours as i64 > 0, "Reset time must be a positive number.");
+    assert!(*times.reset_hours as f32 > 0.0, "Reset time must be a positive number.");
 
     println!("Today's Date is {}", times.current_dt.date().format(DATE_STR));
     println!("Days remaining in event is: {}", remaining.num_days());
-    println!("Daily quests reset at approximately: {}", reset.format(RESET_STR));
+    println!("Daily quests reset at approximately: {}", reset_time.format(RESET_STR));
 
     if final_day == times.current_dt.date() {
         println!("You must start the event today to acquire the required number of tokens.");
     } else {
         println!("Final day to start the event is: {}", final_day.format(DATE_STR));
     }
-    */
 }
