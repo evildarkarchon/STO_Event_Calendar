@@ -26,12 +26,12 @@ fn main() {
         (author: "Andrew Nelson <andrew@andrewnelson.org>")
         (about: "Calculator for Star Trek Online in-game events.\n
         Based on a python script made by /u/AuguryDefiant on reddit")
-        (@arg daily_tokens: -d --("daily-tokens") -required +takes_value "The amount of tokens you can receive from daily quests.")
-        (@arg total_tokens: -t --("total-tokens") -required +takes_value "The amount of tokens you need to complete the event.")
-        (@arg tokens_claimed: -c --("tokens-claimed") -required +takes_value "The amount of tokens you have claimed.")
-        (@arg end_date: -e --("end-date") -required +takes_value "Date that the event ends, in MM/DD/YYYY format (yes, I'm an American).")
-        (@arg reset: -rh --("reset-hours") -required +takes_value "The amount of hours (can use decimals for partial hours) until the daily quests reset.")
-        (@arg write_json: -j --("write-json") -required +takes_value "Write the raw data to a file in JSON format.")
+        (@arg daily_tokens: -d --("daily-tokens") +takes_value "The amount of tokens you can receive from daily quests.")
+        (@arg total_tokens: -t --("total-tokens") +takes_value "The amount of tokens you need to complete the event.")
+        (@arg tokens_claimed: -c --("tokens-claimed") +takes_value "The amount of tokens you have claimed.")
+        (@arg end_date: -e --("end-date") +takes_value "Date that the event ends, in MM/DD/YYYY format (yes, I'm an American).")
+        (@arg reset: -s --("reset-hours") +takes_value "The amount of hours (can use decimals for partial hours) until the daily quests reset.")
+        (@arg write_json: -j --("write-json") +takes_value "Write the raw data to a file in JSON format.")
         (@arg print_json: -p --("print-json") "Print the raw data to the console.")
     ).get_matches();
 
@@ -90,9 +90,9 @@ fn main() {
     let reset_time = times.reset_time();
     let remaining = times.remaining();
     let final_day = times.final_day();
-    let _jsondata = json::build_jsondata(&times, &remaining, &reset_time, &final_day);
     
     if args.is_present("write_json") || args.is_present("print_json") {
+        let _jsondata = json::build_jsondata(&times, &remaining, &reset_time, &final_day);
         #[allow(unused_must_use)]
         json::json_out(&args, &_jsondata);
     }
@@ -101,13 +101,13 @@ fn main() {
     assert!(remaining.num_days() > 0, "remaining returned a negative number or is 0. remaining value is: {}", remaining.num_days());
     assert!(*times.reset_hours as f32 > 0.0, "Reset time must be a positive number.");
 
-    println!("Today's Date is {}", times.current_dt.date().format(DATE_STR));
+    println!("Today's Date is {}", times.current_dt.date().format(&*DATE_STR));
     println!("Days remaining in event is: {}", remaining.num_days());
-    println!("Daily quests reset at approximately: {}", reset_time.format(RESET_STR));
+    println!("Daily quests reset at approximately: {}", reset_time.format(&*RESET_STR));
 
     if final_day == times.current_dt.date() {
         println!("You must start the event today to acquire the required number of tokens.");
     } else {
-        println!("Final day to start the event is: {}", final_day.format(DATE_STR));
+        println!("Final day to start the event is: {}", final_day.format(&*DATE_STR));
     }
 }

@@ -1,4 +1,6 @@
 use clap::ArgMatches;
+use std::io::prelude::*;
+use std::io;
 
 pub fn input_number_f32(cmd: &ArgMatches, cmdname: &str) -> f32 {
     let intermediate: f32 = cmd.value_of(cmdname).unwrap().parse().ok().unwrap();
@@ -14,6 +16,7 @@ pub fn input_number_u32(cmd: &ArgMatches, cmdname: &str) -> u32 {
 
 pub fn ask(message: &str) -> String {
     print!("{}", message);
+    io::stdout().flush().ok().expect("Could not flush stdout.");
     let out: String = read!("{}\n");
     out
 }
