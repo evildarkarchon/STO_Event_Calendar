@@ -14,9 +14,11 @@ namespace STO_Event_Calendar
 
     class STO_Event_Calendar
     {
+        public delegate void JSONDel(Calc dc);
         public static void Main(string[] args)
         {
             ParserResult<Options> result = Parser.Default.ParseArguments<Options>(args);
+            
             /*
             if (result.Tag == ParserResultType.Parsed)
             {
@@ -94,21 +96,19 @@ namespace STO_Event_Calendar
                 }
             }
             );
+
             result.WithParsed(options =>
             {
-                if (options.Json && ! options.PrintJSON)
+                JSONDel JsonOut = null;
+                if (options.Json)
                 {
-                    ConvertJSON.OutJSON(ref DateCalc);
+                    JsonOut += ConvertJSON.OutJSON;
                 }
-                else if (options.PrintJSON)
+                if (options.PrintJSON)
                 {
-                    ConvertJSON.PrintJSON(ref DateCalc);
+                    JsonOut += ConvertJSON.PrintJSON;
                 }
-                else if (options.Json && options.PrintJSON)
-                {
-                    ConvertJSON.OutJSON(ref DateCalc);
-                    ConvertJSON.PrintJSON(ref DateCalc);
-                }
+                JsonOut(DateCalc);
             }
             );
         }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -20,11 +19,11 @@ namespace STO_Event_Calendar
 
     class ConvertJSON
     {
-        public static void OutJSON(ref Calc DateCalc)
+        public static void OutJSON(Calc DateCalc)
         {
             //StringBuilder Path = new StringBuilder(Directory.GetCurrentDirectory());
             //Path.Append("\\STO_Event_Calendar.json");
-            string Path = $"{Directory.GetCurrentDirectory()}\\STO_Event_Calendar.json";
+            string Path = DateCalc.OutPath;
             JSONInfo Base = new JSONInfo()
             {
                 Now = DateCalc.Now,
@@ -40,7 +39,7 @@ namespace STO_Event_Calendar
             File.WriteAllText(Path, JsonConvert.SerializeObject(Base, Formatting.Indented));
         }
 
-        public static void PrintJSON(ref Calc DateCalc)
+        public static void PrintJSON(Calc DateCalc)
         {
             JSONInfo Base = new JSONInfo()
             {

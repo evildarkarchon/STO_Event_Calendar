@@ -14,6 +14,7 @@ namespace STO_Event_Calendar
         public DateTime End { get { return _End; } }
         public Dictionary<string, uint> AllTokens { get; }
         public DateTime Now { get; } = DateTime.Now;
+        public string OutPath { get; set; }
 
         public DateTime DateNeeded()
         {
@@ -90,6 +91,7 @@ namespace STO_Event_Calendar
 
             float _dn = (o.TotalTokens - o.TokensClaimed) / o.DailyTokens;
             DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
+            OutPath = o.JsonPath;
         }
 
         public Calc(ref Date dates)
