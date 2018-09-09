@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 # frozen_string_literal: true
 
 # rubocop:disable lint/UnneededCopEnableDirectve
@@ -51,7 +52,6 @@ remaining = today - stats.end
 days_needed = ((stats.needed - stats.claimed) / stats.daily).ceil
 date_needed = today.to_date + days_needed.to_r if days_needed.respond_to?(:to_r)
 final_day = stats.end - days_needed
-# rubocop:enable Lint/UselessAssignment
 puts "Max tokens per day: #{stats.daily}"
 puts "Total tokens needed: #{stats.needed}"
 puts "Number of tokens already claimed: #{stats.claimed}"
@@ -61,4 +61,4 @@ puts "Days remaining: #{remaining}"
 puts "Today's Date: #{today}"
 puts "Estimated date of completion: #{date_needed.to_time.strftime('%B %d')}"
 puts "Number of days needed: #{days_needed}"
-puts "Final day to be able to start the event: #{date_need.to_time.strftime('%B %d')}"
+puts "Final day to be able to start the event: #{final_day.to_time.strftime('%B %d')}"
