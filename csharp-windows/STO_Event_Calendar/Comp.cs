@@ -100,6 +100,10 @@ namespace STO_Event_Calendar
                     {
                         return new Calc(ref Opts);
                     }
+                    else if (Opts == null)
+                    {
+                        throw new ArgumentException("The Options variable seems to be empty.");
+                    }
                     break;
                 case false:
                     if (result.Tag == ParserResultType.Parsed)
