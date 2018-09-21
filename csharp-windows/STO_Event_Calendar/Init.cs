@@ -42,7 +42,7 @@ namespace STO_Event_Calendar
                     if (n.Days > 1) { Console.WriteLine("There are {0} days until the event ends.", n.Days); }
                     else if (n.Days == 1) { Console.WriteLine("There is 1 day until the event ends."); }
                 }
-                if (n.Days < 1)
+                else if (n.Days < 1)
                 {
                     if (n.Hours >= 1)
                     {
