@@ -83,7 +83,7 @@ namespace STO_Event_Calendar
                 JSONDel JsonOut = null;
                 if (options.Json) { JsonOut += ConvertJSON.OutJSON; }
                 if (options.PrintJSON) { JsonOut += ConvertJSON.PrintJSON; }
-                JsonOut(DateCalc);
+                if (options.Json || options.PrintJSON) { JsonOut(DateCalc); }
             }
             );
         }
