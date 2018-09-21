@@ -19,13 +19,8 @@ namespace STO_Event_Calendar
 
     class ConvertJSON
     {
-        public static void OutJSON(Calc DateCalc)
-        {
-            //StringBuilder Path = new StringBuilder(Directory.GetCurrentDirectory());
-            //Path.Append("\\STO_Event_Calendar.json");
-            string Path = DateCalc.OutPath;
-            JSONInfo Base = new JSONInfo()
-            {
+        public static Nullable<JSONInfo> CalcJSONInfo(ref Calc DateCalc) {
+            Nullable<JSONInfo> Out = new JSONInfo() {
                 Now = DateCalc.Now,
                 Reset = DateCalc.Reset,
                 DaysNeeded = (uint)DateCalc.DaysNeeded.Days,
@@ -35,24 +30,12 @@ namespace STO_Event_Calendar
                 FinalDay = DateCalc.FinalDay(),
                 DateNeeded = DateCalc.DateNeeded()
             };
-            
-            File.WriteAllText(Path, JsonConvert.SerializeObject(Base, Formatting.Indented));
+            return Out;
         }
+        public static void OutJSON(ref Nullable<JSONInfo> Base, string Path) { File.WriteAllText(Path, JsonConvert.SerializeObject(Base, Formatting.Indented)); }
 
-        public static void PrintJSON(Calc DateCalc)
+        public static void PrintJSON(ref Nullable<JSONInfo> Base)
         {
-            JSONInfo Base = new JSONInfo()
-            {
-                Now = DateCalc.Now,
-                Reset = DateCalc.Reset,
-                DaysNeeded = (uint)DateCalc.DaysNeeded.Days,
-                EndDiff = (uint)DateCalc.EndDiff.Days,
-                End = DateCalc.End,
-                AllTokens = DateCalc.AllTokens,
-                FinalDay = DateCalc.FinalDay(),
-                DateNeeded = DateCalc.DateNeeded()
-            };
-
             string output = JsonConvert.SerializeObject(Base, Formatting.Indented);
             Console.WriteLine("Here's the raw data (in JSON form):");
             Console.WriteLine(output);

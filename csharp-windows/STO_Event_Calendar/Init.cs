@@ -1,5 +1,6 @@
 using System;
 using CommandLine;
+using System.Collections.Generic;
 
 namespace STO_Event_Calendar
 {
@@ -14,7 +15,6 @@ namespace STO_Event_Calendar
 
     class STO_Event_Calendar
     {
-        public delegate void JSONDel(Calc dc);
         public static void Main(string[] args)
         {
             ParserResult<Options> result = Parser.Default.ParseArguments<Options>(args);
@@ -57,7 +57,7 @@ namespace STO_Event_Calendar
                     }
                 }
             }
-
+            
             void Announce()
             {
                 Console.WriteLine("Todays Date: {0}", DateCalc.Now.ToShortDateString());
@@ -78,12 +78,18 @@ namespace STO_Event_Calendar
             }
             );
 
+            //JSONInfo JSON = ConvertJSON.CalcJSONInfo(ref DateCalc);
+            Nullable<JSONInfo> JSON = null;
+            if (result.Tag == ParserResultType.Parsed)
+            {
+                if (((Parsed<Options>)result).Value.Json == true || ((Parsed<Options>)result).Value.PrintJSON == true) {
+                    JSON = result.MapResult((Options options) => { return ConvertJSON.CalcJSONInfo(ref DateCalc); }, (IEnumerable<CommandLine.Error> err) => { return ConvertJSON.CalcJSONInfo(ref DateCalc); });
+                }
+            }
             result.WithParsed(options =>
             {
-                JSONDel JsonOut = null;
-                if (options.Json) { JsonOut += ConvertJSON.OutJSON; }
-                if (options.PrintJSON) { JsonOut += ConvertJSON.PrintJSON; }
-                if (options.Json || options.PrintJSON) { JsonOut(DateCalc); }
+                if (options.Json) { ConvertJSON.OutJSON(ref JSON, DateCalc.OutPath); }
+                if (options.PrintJSON) { ConvertJSON.PrintJSON(ref JSON); }
             }
             );
         }
