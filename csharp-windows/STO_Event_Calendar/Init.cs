@@ -79,7 +79,7 @@ namespace STO_Event_Calendar
             );
 
             //JSONInfo JSON = ConvertJSON.CalcJSONInfo(ref DateCalc);
-            Nullable<JSONInfo> JSON = null;
+            JSONInfo? JSON = null;
             if (result.Tag == ParserResultType.Parsed)
             {
                 if (((Parsed<Options>)result).Value.Json == true || ((Parsed<Options>)result).Value.PrintJSON == true) {

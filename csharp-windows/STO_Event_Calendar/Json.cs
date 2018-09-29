@@ -19,8 +19,8 @@ namespace STO_Event_Calendar
 
     class ConvertJSON
     {
-        public static Nullable<JSONInfo> CalcJSONInfo(ref Calc DateCalc) {
-            Nullable<JSONInfo> Out = new JSONInfo() {
+        public static JSONInfo? CalcJSONInfo(ref Calc DateCalc) {
+            JSONInfo? Out = new JSONInfo() {
                 Now = DateCalc.Now,
                 Reset = DateCalc.Reset,
                 DaysNeeded = (uint)DateCalc.DaysNeeded.Days,
@@ -32,9 +32,9 @@ namespace STO_Event_Calendar
             };
             return Out;
         }
-        public static void OutJSON(ref Nullable<JSONInfo> Base, string Path) { File.WriteAllText(Path, JsonConvert.SerializeObject(Base, Formatting.Indented)); }
+        public static void OutJSON(ref JSONInfo? Base, string Path) { File.WriteAllText(Path, JsonConvert.SerializeObject(Base, Formatting.Indented)); }
 
-        public static void PrintJSON(ref Nullable<JSONInfo> Base)
+        public static void PrintJSON(ref JSONInfo? Base)
         {
             string output = JsonConvert.SerializeObject(Base, Formatting.Indented);
             Console.WriteLine("Here's the raw data (in JSON form):");
