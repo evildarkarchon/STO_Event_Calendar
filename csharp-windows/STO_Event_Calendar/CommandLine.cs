@@ -3,7 +3,7 @@ using System.IO;
 
 namespace STO_Event_Calendar
 {
-    class Options
+    public class Options
     {
         [Option('d', "daily-tokens", HelpText = "Amount of tokens you get per reset.")]
         public uint DailyTokens { get; set; }
@@ -20,7 +20,7 @@ namespace STO_Event_Calendar
         [Option('r', "reset", HelpText = "Amount of hours until the daily quests reset.")]
         public float Reset { get; set; }
 
-        [Option('j', "json", HelpText = "Save data as a json file.")] // This feature is to help me debug any possible data problems.
+        [Option('j', "json", HelpText = "Save raw data as a json file.")] // This feature is to help me debug any possible data problems.
         public bool Json { get; set; }
 
         [Option('o', "output", Required = false, HelpText = "Where to save the JSON file (defaults to STO_Event_Calendar.json in the current directory).")]
@@ -29,7 +29,7 @@ namespace STO_Event_Calendar
         [Option('q', "quiet", HelpText = "Don't actually print anything on the console (Best combined with --json)")]
         public bool Quiet { get; set; }
 
-        [Option('p', "print-json", HelpText = "Print the json to the console instead of writing it to a file.")]
+        [Option('p', "print-json", HelpText = "Print the raw data as json to the console.")]
         public bool PrintJSON { get; set; }
     }
 }
