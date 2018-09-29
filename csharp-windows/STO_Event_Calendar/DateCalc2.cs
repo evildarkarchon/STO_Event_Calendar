@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using CommandLine;
 
 namespace STO_Event_Calendar
 {
