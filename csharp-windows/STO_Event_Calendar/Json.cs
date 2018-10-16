@@ -5,22 +5,21 @@ using System.Collections.Generic;
 
 namespace STO_Event_Calendar
 {
-    struct JSONInfo
-    {
-        public DateTime Now { get; set; }
-        public DateTime Reset { get; set; }
-        public uint DaysNeeded { get; set; }
-        public uint EndDiff { get; set; }
-        public DateTime End { get; set; }
-        public Dictionary<string, uint> AllTokens { get; set; }
-        public DateTime FinalDay { get; set; }
-        public DateTime DateNeeded { get; set; }
-    }
-
     class ConvertJSON
     {
-        public static JSONInfo? CalcJSONInfo(ref Calc DateCalc) {
-            JSONInfo? Out = new JSONInfo() {
+        public struct JSONInfo
+        {
+            public DateTime Now { get; set; }
+            public DateTime Reset { get; set; }
+            public uint DaysNeeded { get; set; }
+            public uint EndDiff { get; set; }
+            public DateTime End { get; set; }
+            public Dictionary<string, uint> AllTokens { get; set; }
+            public DateTime FinalDay { get; set; }
+            public DateTime DateNeeded { get; set; }
+        }
+        public static JSONInfo CalcJSONInfo(ref STO DateCalc) {
+            JSONInfo Out = new JSONInfo() {
                 Now = DateCalc.Now,
                 Reset = DateCalc.Reset,
                 DaysNeeded = (uint)DateCalc.DaysNeeded.Days,
@@ -32,9 +31,9 @@ namespace STO_Event_Calendar
             };
             return Out;
         }
-        public static void OutJSON(ref JSONInfo? Base, string Path) { File.WriteAllText(Path, JsonConvert.SerializeObject(Base, Formatting.Indented)); }
+        public static void OutJSON(ref JSONInfo Base, string Path) { File.WriteAllText(Path, JsonConvert.SerializeObject(Base, Formatting.Indented)); }
 
-        public static void PrintJSON(ref JSONInfo? Base)
+        public static void PrintJSON(ref JSONInfo Base)
         {
             string output = JsonConvert.SerializeObject(Base, Formatting.Indented);
             Console.WriteLine("Here's the raw data (in JSON form):");
