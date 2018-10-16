@@ -4,30 +4,30 @@ namespace STO_Event_Calendar
 {
     class Print
     {
-        void AnnounceEnd(TimeSpan n)
+        public static void AnnounceEnd(TimeSpan EndDiff)
         {
-            if (n.Days >= 1)
+            if (EndDiff.Days >= 1)
             {
-                if (n.Days > 1) { Console.WriteLine("There are {0} days until the event ends.", n.Days); }
-                else if (n.Days == 1) { Console.WriteLine("There is 1 day until the event ends."); }
+                if (EndDiff.Days > 1) { Console.WriteLine("There are {0} days until the event ends.", EndDiff.Days); }
+                else if (EndDiff.Days == 1) { Console.WriteLine("There is 1 day until the event ends."); }
             }
-            else if (n.Days < 1)
+            else if (EndDiff.Days < 1)
             {
-                if (n.Hours >= 1)
+                if (EndDiff.Hours >= 1)
                 {
-                    if (n.Hours > 1) { Console.WriteLine("There are {0} hours until the event ends", n.Hours); }
-                    else if (n.Hours == 1) { Console.WriteLine("There is 1 hour until the event ends."); }
+                    if (EndDiff.Hours > 1) { Console.WriteLine("There are {0} hours until the event ends", EndDiff.Hours); }
+                    else if (EndDiff.Hours == 1) { Console.WriteLine("There is 1 hour until the event ends."); }
                 }
-                else if (n.Hours < 1)
+                else if (EndDiff.Hours < 1)
                 {
-                    if (n.Minutes > 1) { Console.WriteLine("There are {0} minutes until the event ends.", n.Minutes); }
-                    else if (n.Minutes == 1) { Console.WriteLine("There is only 1 minute until the event ends."); }
-                    else if (n.Minutes < 1 && n.Seconds < 1) { Console.WriteLine("The event is over, sorry."); }
+                    if (EndDiff.Minutes > 1) { Console.WriteLine("There are {0} minutes until the event ends.", EndDiff.Minutes); }
+                    else if (EndDiff.Minutes == 1) { Console.WriteLine("There is only 1 minute until the event ends."); }
+                    else if (EndDiff.Minutes < 1 && EndDiff.Seconds < 1) { Console.WriteLine("The event is over, sorry."); }
                 }
             }
         }
 
-        void Announce(STO DateCalc, DateTime FinalDay)
+        public static void Announce(STO DateCalc, DateTime FinalDay)
         {
             Console.WriteLine("Todays Date: {0}", DateCalc.Now.ToShortDateString());
             Console.WriteLine("Daily Quests will be available on {0} at {1}", DateCalc.Reset.ToShortDateString(), DateCalc.Reset.ToShortTimeString());
