@@ -2,9 +2,9 @@ using System;
 using CommandLine;
 using System.Collections.Generic;
 
-namespace STO_Event_Calendar
+namespace STO_Event_Calendar_Old
 {
-    struct Date
+    public struct Date
     {
         public string EndDate;
         public float Reset;
@@ -18,7 +18,11 @@ namespace STO_Event_Calendar
         public static void Main(string[] args)
         {
             ParserResult<Options> result = Parser.Default.ParseArguments<Options>(args);
-            
+            STOFactory Factory = new STOFactory();
+#pragma warning disable CS0168 // Variable is declared but never used
+            STO DateCalc2;
+#pragma warning restore CS0168 // Variable is declared but never used
+                        
             /*
             if (result.Tag == ParserResultType.Parsed)
             {
@@ -79,7 +83,7 @@ namespace STO_Event_Calendar
             );
 
             //JSONInfo JSON = ConvertJSON.CalcJSONInfo(ref DateCalc);
-            JSONInfo? JSON = null;
+            ConvertJSON.JSONInfo? JSON = null;
             if (result.Tag == ParserResultType.Parsed)
             {
                 if (((Parsed<Options>)result).Value.Json == true || ((Parsed<Options>)result).Value.PrintJSON == true) {

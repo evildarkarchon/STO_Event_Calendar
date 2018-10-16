@@ -1,7 +1,8 @@
 ﻿using System;
 using CommandLine;
+using STO_Event_Calendar;
 
-namespace STO_Event_Calendar
+namespace STO_Event_Calendar_Old
 {
     class Comp
     {
@@ -43,7 +44,7 @@ namespace STO_Event_Calendar
 
             if (UseOptions == true && Opts != null && result.Tag == ParserResultType.Parsed)
             {
-                if (string.IsNullOrEmpty(Opts.EndDate))
+                if (string.IsNullOrEmpty(Opts.EndDate) || Opts.EndDate == default(string))
                 {
                     Opts.EndDate = Ask("Enter the date that the event ends: ", "You must enter a date.");
 
