@@ -2,8 +2,9 @@
 using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using STO_Event_Calendar;
 
-namespace STO_Event_Calendar
+namespace STO_Event_Calendar_Old
 {
     class ConvertJSON
     {
