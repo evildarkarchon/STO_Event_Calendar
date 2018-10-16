@@ -20,7 +20,7 @@ namespace STO_Event_Calendar
 
         protected AbsSTO() { Now = DateTime.Now; }
 
-        public struct JSONInfo
+        protected struct JSONInfo
         {
             public DateTime Now { get; set; }
             public DateTime Reset { get; set; }
@@ -31,8 +31,8 @@ namespace STO_Event_Calendar
             public DateTime FinalDay { get; set; }
             public DateTime DateNeeded { get; set; }
         }
-        public JSONInfo? JSON { get; protected set; }
-        public string JSONOut { get; protected set; }
+        protected JSONInfo? JSON { get; set; }
+        protected string JSONOut { get; set; }
     }
 
     public abstract class AbsSTOFactory
