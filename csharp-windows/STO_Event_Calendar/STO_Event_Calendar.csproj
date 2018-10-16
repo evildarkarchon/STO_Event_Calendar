@@ -62,7 +62,6 @@
     <Compile Include="STO.cs" />
     <Compile Include="CommandLine.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="Json.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
