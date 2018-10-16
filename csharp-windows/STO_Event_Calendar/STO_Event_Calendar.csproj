@@ -56,11 +56,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comp.cs" />
-    <Compile Include="DateCalc.cs" />
+    <Compile Include="AbstractSTO.cs" />
+    <Compile Include="Key.cs" />
+    <Compile Include="Print.cs" />
+    <Compile Include="STO.cs" />
     <Compile Include="CommandLine.cs" />
+    <Compile Include="Main.cs" />
     <Compile Include="Json.cs" />
-    <Compile Include="Init.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
