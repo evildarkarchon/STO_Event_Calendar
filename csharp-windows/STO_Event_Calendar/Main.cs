@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CommandLine;
 
 namespace STO_Event_Calendar
@@ -50,21 +51,6 @@ namespace STO_Event_Calendar
             {
                 DateCalc = Factory.Create(ref Dates);
             }
-
-            DateTime DateNeeded = DateCalc.DateNeeded();
-            DateTime FinalDay = DateCalc.FinalDay();
-
-            result.WithParsed(options =>
-            {
-                if (!options.Quiet)
-                {
-                    Print.Announce(DateCalc, FinalDay);
-                    Print.AnnounceEnd(DateCalc.EndDiff);
-                }
-                if (options.Json) { DateCalc.WriteJSON(); }
-                if (options.PrintJSON) { DateCalc.PrintJSON(); }
-            }
-            );
         }
     }
 }
