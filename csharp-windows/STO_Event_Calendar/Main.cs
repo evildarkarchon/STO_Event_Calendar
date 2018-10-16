@@ -42,29 +42,32 @@ namespace STO_Event_Calendar
                 UseOptions = true;
             }
 
-            if (UseOptions == true)
+            if (UseOptions == true && result.Tag == ParserResultType.Parsed)
             {
                 DateCalc = Factory.Create(ref Opts);
             }
-            else if (UseOptions == false)
+            else if (UseOptions == false && result.Tag == ParserResultType.Parsed)
             {
                 DateCalc = Factory.Create(ref Dates);
             }
-
-            DateTime DateNeeded = DateCalc.DateNeeded();
-            DateTime FinalDay = DateCalc.FinalDay();
-
-            result.WithParsed(options =>
+            if (DateCalc != default(STO))
             {
-                if (!options.Quiet)
+                DateTime DateNeeded = DateCalc.DateNeeded();
+                DateTime FinalDay = DateCalc.FinalDay();
+
+                result.WithParsed(options =>
                 {
-                    Print.Announce(DateCalc, FinalDay);
-                    Print.AnnounceEnd(DateCalc.EndDiff);
+                    if (!options.Quiet)
+                    {
+                        Print.Announce(DateCalc, FinalDay);
+                        Print.AnnounceEnd(DateCalc.EndDiff);
+                    }
+                    if (options.Json) { DateCalc.WriteJSON(); }
+                    if (options.PrintJSON) { DateCalc.PrintJSON(); }
                 }
-                if (options.Json) { DateCalc.WriteJSON(); }
-                if (options.PrintJSON) { DateCalc.PrintJSON(); }
+                );
             }
-            );
+            
         }
     }
 }
