@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27703.2042
+VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "STO_Event_Calendar", "STO_Event_Calendar.vcxproj", "{3DF63211-CB02-40CA-B7A1-FF40306B61C0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "STO_Event_Calendar", "STO_Event_Calendar\STO_Event_Calendar.vcxproj", "{7EA11F6C-16DD-43A3-8C5F-10750B2A3612}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +13,19 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3DF63211-CB02-40CA-B7A1-FF40306B61C0}.Debug|x64.ActiveCfg = Debug|x64
-		{3DF63211-CB02-40CA-B7A1-FF40306B61C0}.Debug|x64.Build.0 = Debug|x64
-		{3DF63211-CB02-40CA-B7A1-FF40306B61C0}.Debug|x86.ActiveCfg = Debug|Win32
-		{3DF63211-CB02-40CA-B7A1-FF40306B61C0}.Debug|x86.Build.0 = Debug|Win32
-		{3DF63211-CB02-40CA-B7A1-FF40306B61C0}.Release|x64.ActiveCfg = Release|x64
-		{3DF63211-CB02-40CA-B7A1-FF40306B61C0}.Release|x64.Build.0 = Release|x64
-		{3DF63211-CB02-40CA-B7A1-FF40306B61C0}.Release|x86.ActiveCfg = Release|Win32
-		{3DF63211-CB02-40CA-B7A1-FF40306B61C0}.Release|x86.Build.0 = Release|Win32
+		{7EA11F6C-16DD-43A3-8C5F-10750B2A3612}.Debug|x64.ActiveCfg = Debug|x64
+		{7EA11F6C-16DD-43A3-8C5F-10750B2A3612}.Debug|x64.Build.0 = Debug|x64
+		{7EA11F6C-16DD-43A3-8C5F-10750B2A3612}.Debug|x86.ActiveCfg = Debug|Win32
+		{7EA11F6C-16DD-43A3-8C5F-10750B2A3612}.Debug|x86.Build.0 = Debug|Win32
+		{7EA11F6C-16DD-43A3-8C5F-10750B2A3612}.Release|x64.ActiveCfg = Release|x64
+		{7EA11F6C-16DD-43A3-8C5F-10750B2A3612}.Release|x64.Build.0 = Release|x64
+		{7EA11F6C-16DD-43A3-8C5F-10750B2A3612}.Release|x86.ActiveCfg = Release|Win32
+		{7EA11F6C-16DD-43A3-8C5F-10750B2A3612}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8F5F4A78-78FB-4FFB-8516-F28C96BF8525}
+		SolutionGuid = {F25E1BC7-F4AB-4654-AFEA-E0596886EAA9}
 	EndGlobalSection
 EndGlobal
