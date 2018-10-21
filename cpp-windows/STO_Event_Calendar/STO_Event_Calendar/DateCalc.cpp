@@ -20,6 +20,7 @@ typedef duration<int,std::ratio<60*60*24>> days_type;
 extern struct Date;
 
 string GetKeyboardInput(string message, bool is_required = false, bool newline = false);
+string GetKeyboardInput(string *message, bool is_required = false, bool newline = false);
 
 class DateCalc {
     argagg::parser_results args;
