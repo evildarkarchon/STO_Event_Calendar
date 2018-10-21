@@ -91,7 +91,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\evild\source\thirdparty\vietjtnguyen\argagg\include;C:\Users\evild\source\thirdparty\nlohmann\json\single_include;C:\Users\evild\source\thirdparty\mirror\tclap\include;C:\Boost\include\boost-1_68;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\evild\source\thirdparty\HowardHinnant\date\include;C:\Boost\include\boost-1_68;C:\Users\evild\source\thirdparty\vietjtnguyen\argagg\include;C:\Users\evild\source\thirdparty\nlohmann\json\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,7 +107,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\evild\source\thirdparty\mirror\tclap\include;C:\Users\evild\source\thirdparty\vietjtnguyen\argagg\include;C:\Boost\include\boost-1_68;C:\Users\evild\source\thirdparty\nlohmann\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\evild\source\thirdparty\HowardHinnant\date\include;C:\Boost\include\boost-1_68;C:\Users\evild\source\thirdparty\vietjtnguyen\argagg\include;C:\Users\evild\source\thirdparty\nlohmann\json\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -126,7 +126,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\evild\source\thirdparty\vietjtnguyen\argagg\include;C:\Users\evild\source\thirdparty\nlohmann\json\single_include;C:\Users\evild\source\thirdparty\mirror\tclap\include;C:\Boost\include\boost-1_68;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\evild\source\thirdparty\HowardHinnant\date\include;C:\Boost\include\boost-1_68;C:\Users\evild\source\thirdparty\vietjtnguyen\argagg\include;C:\Users\evild\source\thirdparty\nlohmann\json\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,7 +146,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\evild\source\thirdparty\mirror\tclap\include;C:\Users\evild\source\thirdparty\vietjtnguyen\argagg\include;C:\Boost\include\boost-1_68;C:\Users\evild\source\thirdparty\nlohmann\json\single_include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\evild\source\thirdparty\HowardHinnant\date\include;C:\Boost\include\boost-1_68;C:\Users\evild\source\thirdparty\vietjtnguyen\argagg\include;C:\Users\evild\source\thirdparty\nlohmann\json\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Learning CPP 3\Learning CPP 3\userinput.cpp" />
+    <ClCompile Include="DateCalc.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

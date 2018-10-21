@@ -29,5 +29,8 @@
     <ClCompile Include="..\..\..\..\Learning CPP 3\Learning CPP 3\userinput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DateCalc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
