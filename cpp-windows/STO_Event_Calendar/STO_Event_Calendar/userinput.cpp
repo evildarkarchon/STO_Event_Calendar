@@ -26,6 +26,8 @@ string GetKeyboardInput(string message, bool is_required = false, bool newline =
 string GetKeyboardInput(string *message, bool is_required = false, bool newline = false) {
 	string s;
 
+	if (message == nullptr) { return ""; }
+
 	if (is_required) {
 		while ( s.empty() || s.size() <= 0 ) {
 			cout << *message;
