@@ -10,7 +10,8 @@ namespace STO_Event_Calendar
             ParserResult<Options> result = Parser.Default.ParseArguments<Options>(args);
             STOFactory Factory = new STOFactory();
             Date Dates = new Date();
-            STO DateCalc = default(STO);
+            DateTime End = DateTime.Now + TimeSpan.FromDays(20);
+            STO DateCalc = Factory.Create(End.ToString(), 20.0f, 20u, 20u, 10u);
             bool UseOptions = new bool();
             Options Opts = new Options();
 
@@ -40,13 +41,6 @@ namespace STO_Event_Calendar
             else if (UseOptions == false && result.Tag == ParserResultType.Parsed)
             {
                 DateCalc = Factory.Create(ref Dates);
-            }
-            else
-            {
-                DateTime Now = DateTime.Now;
-                DateTime Reset = Now + TimeSpan.FromDays(20);
-                DateCalc = Factory.Create(Reset.ToString(), 20.0f, 20, 20, 10);
-
             }
 
             if (DateCalc != default(STO))
