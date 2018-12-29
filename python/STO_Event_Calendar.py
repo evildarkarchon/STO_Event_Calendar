@@ -1,5 +1,6 @@
 #pylint: disable=invalid-name, missing-docstring, line-too-long
 from __future__ import division, print_function
+import sys
 
 # try:
 #     from __future__ import assertions  # putting this here in case i need it.
@@ -10,7 +11,8 @@ import argparse
 
 from datetime import datetime, timedelta
 from math import ceil
-
+if sys.version_info[0] >= 3:
+    raw_input = input
 def gatherinfo(string):
     '''This function prompts the user for input with the prompt being specified by the "string" argument.
        This function does not do any data verification, so any wrong data input will probably trigger a TypeError or ValueError later on.'''
