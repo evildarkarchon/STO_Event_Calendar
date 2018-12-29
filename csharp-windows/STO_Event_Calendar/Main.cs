@@ -18,10 +18,10 @@ namespace STO_Event_Calendar
         {
             ParserResult<Options> result = Parser.Default.ParseArguments<Options>(args);
             STOFactory Factory = new STOFactory();
-            Date Dates = default(Date);
+            Date Dates = new Date();
             STO DateCalc = default(STO);
-            bool UseOptions = default(bool);
-            Options Opts = default(Options);
+            bool UseOptions = new bool();
+            Options Opts = new Options();
 
             if (result.Tag == ParserResultType.Parsed)
             {

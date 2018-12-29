@@ -33,7 +33,6 @@ namespace STO_Event_Calendar
             Console.WriteLine("Daily Quests will be available on {0} at {1}", DateCalc.Reset.ToShortDateString(), DateCalc.Reset.ToShortTimeString());
             Console.WriteLine("Estimated date of completion: {0}", DateCalc.DateNeeded().ToShortDateString());
             Console.WriteLine("Days needed to complete the event: {0}", DateCalc.DaysNeeded.Days);
-            AnnounceEnd(DateCalc.EndDiff);
 
             if (FinalDay < DateCalc.Now) { Console.WriteLine("There is no way to complete this event, sorry."); }
             else if (FinalDay.Day == DateCalc.Now.Day) { Console.WriteLine("You have to do dailies every day to be able to get enough tokens."); }
