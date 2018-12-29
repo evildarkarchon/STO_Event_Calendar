@@ -41,6 +41,14 @@ namespace STO_Event_Calendar
             {
                 DateCalc = Factory.Create(ref Dates);
             }
+            else
+            {
+                DateTime Now = DateTime.Now;
+                DateTime Reset = Now + TimeSpan.FromDays(20);
+                DateCalc = Factory.Create(Reset.ToString(), 20.0f, 20, 20, 10);
+
+            }
+
             if (DateCalc != default(STO))
             {
                 DateTime DateNeeded = DateCalc.DateNeeded();
