@@ -120,7 +120,7 @@ namespace STO_Event_Calendar
             else { JSON = null; }
         }
 
-        public STO(ref Date dates)
+        public STO(ref Date dates, ref Options o)
         {
             if (DateTime.TryParse(dates.EndDate, out _End))
             {
@@ -131,8 +131,8 @@ namespace STO_Event_Calendar
             {
                 throw new FormatException("Unable to parse date.");
             }
-
-            if (Dates.Reset > 0)
+            Dates = dates;
+            if (dates.Reset > 0)
             {
                 Reset = Now + TimeSpan.FromHours(dates.Reset);
             }
@@ -141,7 +141,7 @@ namespace STO_Event_Calendar
                 Reset = Now;
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
-            Dates = dates;
+            
 
             AllTokens = new Dictionary<string, uint>()
             {
@@ -152,7 +152,28 @@ namespace STO_Event_Calendar
 
             float _dn = (dates.Needed - dates.Tokens) / dates.Daily;
             DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
-            JSON = null;
+            if (o != default(Options))
+            {
+                OutPath = o.JsonPath;
+
+                if (o.Json || o.PrintJSON)
+                {
+                    JSON = new JSONInfo
+                    {
+                        Now = Now,
+                        Reset = Reset,
+                        DaysNeeded = (uint)DaysNeeded.Days,
+                        EndDiff = (uint)EndDiff.Days,
+                        End = End,
+                        AllTokens = AllTokens,
+                        FinalDay = FinalDay(),
+                        DateNeeded = DateNeeded()
+                    };
+                    JSONOut = JsonConvert.SerializeObject(JSON, Formatting.Indented);
+                }
+                else { JSON = null; }
+            }
+            else { JSON = null; }
         }
     }
 }

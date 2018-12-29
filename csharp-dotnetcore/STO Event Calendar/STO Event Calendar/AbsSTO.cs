@@ -5,7 +5,7 @@ namespace STO_Event_Calendar
 {
     public abstract class AbsSTO
     {
-        public Date Dates { get; protected set; }
+        public Date Dates { get; set; }
 
         public DateTime Reset { get; protected set; }
         public TimeSpan DaysNeeded { get; protected set; }
@@ -36,7 +36,7 @@ namespace STO_Event_Calendar
 
     public abstract class AbsSTOFactory
     {
-        public abstract STO Create(ref Date Dates);
+        public abstract STO Create(ref Date Dates, ref Options Opts);
         public abstract STO Create(ref Options Opts);
         public abstract STO Create(string end, float reset, uint needed, uint tokens, uint daily);
     }

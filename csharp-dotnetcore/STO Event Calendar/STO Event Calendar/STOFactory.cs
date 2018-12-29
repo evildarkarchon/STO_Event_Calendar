@@ -5,7 +5,7 @@ namespace STO_Event_Calendar
 {
     public class STOFactory : AbsSTOFactory
     {
-        public override STO Create(ref Date Dates)
+        public override STO Create(ref Date Dates, ref Options Opts)
         {
             Dates.EndDate = Key.Ask("Enter the date that the event ends: ", "You must enter a date.");
 
@@ -37,7 +37,7 @@ namespace STO_Event_Calendar
                 throw new ArgumentException("You must enter the number of tokens you get on a daily basis.");
             }
 
-            return new STO(ref Dates);
+            return new STO(ref Dates, ref Opts);
         }
 
         public override STO Create(ref Options Opts)

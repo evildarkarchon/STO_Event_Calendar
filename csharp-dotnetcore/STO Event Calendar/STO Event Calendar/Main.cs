@@ -40,7 +40,7 @@ namespace STO_Event_Calendar
             }
             else if (UseOptions == false && result.Tag == ParserResultType.Parsed)
             {
-                DateCalc = Factory.Create(ref Dates);
+                DateCalc = Factory.Create(ref Dates, ref Opts);
             }
 
             if (DateCalc != default(STO))
