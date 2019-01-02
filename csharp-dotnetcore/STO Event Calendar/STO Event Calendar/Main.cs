@@ -14,13 +14,21 @@ namespace STO_Event_Calendar
             STO DateCalc = Factory.Create(End.ToString(), 20.0f, 20u, 20u, 10u);
             bool UseOptions = new bool();
             Options Opts = new Options();
-
+            /*
             result.WithParsed(options => {
                 if (options.Quiet && (!options.Json || !options.PrintJSON)) {
                     options.PrintJSON = true;
                     Console.WriteLine("Neither --json or --print-json were specified, activating --print-json");
                 }
             });
+            */ // Can't set outside variables within a lambda (if I remember correctly)
+
+            if (result.Tag == ParserResultType.Parsed) {
+                if (Opts.Quiet && !Opts.Json || !Opts.PrintJSON) {
+                    Opts.PrintJSON = true;
+                    Console.Error.WriteLine("Neither --json or --print-json were specified, activating --print-json\n");
+                }
+            }
 
             if (result.Tag == ParserResultType.Parsed)
             {
