@@ -15,6 +15,13 @@ namespace STO_Event_Calendar
             bool UseOptions = new bool();
             Options Opts = new Options();
 
+            result.WithParsed(options => {
+                if (options.Quiet && (!options.Json || !options.PrintJSON)) {
+                    options.PrintJSON = true;
+                    Console.WriteLine("Neither --json or --print-json were specified, activating --print-json");
+                }
+            });
+
             if (result.Tag == ParserResultType.Parsed)
             {
                 Opts = ((Parsed<Options>)result).Value;
