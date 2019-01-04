@@ -2,10 +2,10 @@
 {
     public struct Date
     {
-        public string EndDate;
-        public float Reset;
-        public uint Needed;
-        public uint Tokens;
-        public uint Daily;
+        public string EndDate { get; set; }
+        public float Reset { get; set; }
+        public uint Needed { get; set; }
+        public uint Tokens { get; set; }
+        public uint Daily { get; set; }
     }
 }
