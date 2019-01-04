@@ -9,6 +9,7 @@
     <Description>Calculator for Star Trek Online in-game events.
 Based on a python script made by /u/AuguryDefiant on reddit</Description>
     <Authors>Andrew Nelson</Authors>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
