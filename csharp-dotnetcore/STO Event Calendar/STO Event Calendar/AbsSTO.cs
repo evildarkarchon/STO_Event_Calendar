@@ -33,11 +33,12 @@ namespace STO_Event_Calendar
         protected JSONInfo? JSON { get; set; }
         protected string JSONOut { get; set; }
     }
-
+    /*
     public abstract class AbsSTOFactory
     {
         public abstract STO Create(ref Date Dates, ref Options Opts);
         public abstract STO Create(ref Options Opts);
         public abstract STO Create(string end, float reset, uint needed, uint tokens, uint daily);
     }
+    */
 }

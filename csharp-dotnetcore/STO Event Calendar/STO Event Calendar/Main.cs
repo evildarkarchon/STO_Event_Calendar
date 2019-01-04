@@ -14,6 +14,24 @@ namespace STO_Event_Calendar
             STO DateCalc = Factory.Create(End.ToString(), 20.0f, 20u, 20u, 10u);
             bool UseOptions = new bool();
 
+            Prompts Prompt = new Prompts()
+            {
+                EndDate = "Enter the date that the event ends: ",
+                Reset = "Enter the number of hours until dailies reset: ",
+                Needed = "Enter the number of tokens needed to complete the event: ",
+                Tokens = "Enter the number of tokens you currently have: ",
+                Daily = "Enter the number of tokens you get on a daily basis: "
+            };
+
+            ExceptionMsgs ExceptMsgs = new ExceptionMsgs()
+            {
+                EndDate = "You must enter a date.",
+                Reset = "You must enter the number of hours until reset.",
+                Needed = "You must enter the number of tokens needed to complete the event.",
+                Tokens = "You must enter the number of tokens you currently have.",
+                Daily = "You must enter the number of tokens you get on a daily basis."
+            };
+
             result.WithParsed(options =>
            {
                if (options.Quiet == true && options.Json == false && options.PrintJSON == false)
@@ -33,8 +51,8 @@ namespace STO_Event_Calendar
             }, _ => { return false; }
              );
 
-            DateCalc = result.MapResult(options => { if (UseOptions == true) { return Factory.Create(ref options); }
-                else { return Factory.Create(ref Dates, ref options); } }, 
+            DateCalc = result.MapResult(options => { if (UseOptions == true) { return Factory.Create(ref options, ref Prompt, ref ExceptMsgs); }
+                else { return Factory.Create(ref Dates, ref options, ref Prompt, ref ExceptMsgs); } }, 
                 _ => { return DateCalc; });
 
             if (DateCalc != default(STO))
