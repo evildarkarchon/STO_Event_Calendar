@@ -14,7 +14,12 @@ namespace STO_Event_Calendar
             STO DateCalc = Factory.Create(End.ToString(), 20.0f, 20u, 20u, 10u);
             bool UseOptions = new bool();
 
-            Prompts Prompt = new Prompts()
+            Prompts Prompt = new Prompts("Enter the date that the event ends: ",
+                "Enter the number of hours until dailies reset: ",
+                "Enter the number of tokens needed to complete the event: ",
+                "Enter the number of tokens you currently have: ",
+                "Enter the number of tokens you get on a daily basis: ");
+            /*
             {
                 EndDate = "Enter the date that the event ends: ",
                 Reset = "Enter the number of hours until dailies reset: ",
@@ -22,15 +27,21 @@ namespace STO_Event_Calendar
                 Tokens = "Enter the number of tokens you currently have: ",
                 Daily = "Enter the number of tokens you get on a daily basis: "
             };
+            */
 
-            ExceptionMsgs ExceptMsgs = new ExceptionMsgs()
+            ExceptionMsgs ExceptMsgs = new ExceptionMsgs("You must enter a date.",
+                "You must enter the number of hours until reset.",
+                "You must enter the number of tokens needed to complete the event.",
+                "You must enter the number of tokens you currently have.",
+                "You must enter the number of tokens you get on a daily basis.");
+            /*
             {
                 EndDate = "You must enter a date.",
                 Reset = "You must enter the number of hours until reset.",
                 Needed = "You must enter the number of tokens needed to complete the event.",
                 Tokens = "You must enter the number of tokens you currently have.",
                 Daily = "You must enter the number of tokens you get on a daily basis."
-            };
+            };*/
 
             result.WithParsed(options =>
            {
