@@ -6,6 +6,9 @@
     <RootNamespace>STO_Event_Calendar</RootNamespace>
     <StartupObject></StartupObject>
     <AssemblyName>STO_Event_Calendar</AssemblyName>
+    <Description>Calculator for Star Trek Online in-game events.
+Based on a python script made by /u/AuguryDefiant on reddit</Description>
+    <Authors>Andrew Nelson</Authors>
   </PropertyGroup>
 
   <ItemGroup>
