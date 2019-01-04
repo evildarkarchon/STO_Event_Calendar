@@ -51,8 +51,8 @@ namespace STO_Event_Calendar
             }, _ => { return false; }
              );
 
-            DateCalc = result.MapResult(options => { if (UseOptions == true) { return Factory.Create(ref options, ref Prompt, ref ExceptMsgs); }
-                else { return Factory.Create(ref Dates, ref options, ref Prompt, ref ExceptMsgs); } }, 
+            DateCalc = result.MapResult(options => { if (UseOptions == true) { return Factory.Create(ref options, in Prompt, in ExceptMsgs); }
+                else { return Factory.Create(ref Dates, ref options, in Prompt, in ExceptMsgs); } }, 
                 _ => { return DateCalc; });
 
             if (DateCalc != default(STO))

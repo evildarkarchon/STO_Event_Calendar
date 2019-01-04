@@ -5,7 +5,7 @@ namespace STO_Event_Calendar
 {
     public class STOFactory
     {
-        public STO Create(ref Date Dates, ref Options Opts, ref Prompts Prompt, ref ExceptionMsgs ExceptMsgs)
+        public STO Create(ref Date Dates, ref Options Opts, in Prompts Prompt, in ExceptionMsgs ExceptMsgs)
         {
             Dates.EndDate = Key.Ask(Prompt.EndDate, ExceptMsgs.EndDate);
 
@@ -20,7 +20,7 @@ namespace STO_Event_Calendar
             return new STO(ref Dates, ref Opts);
         }
 
-        public STO Create(ref Options Opts, ref Prompts Prompt, ref ExceptionMsgs ExceptMsgs)
+        public STO Create(ref Options Opts, in Prompts Prompt, in ExceptionMsgs ExceptMsgs)
         {
             if (string.IsNullOrEmpty(Opts.EndDate))
             {
