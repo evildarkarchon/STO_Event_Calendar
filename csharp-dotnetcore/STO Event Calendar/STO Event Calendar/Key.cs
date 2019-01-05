@@ -16,13 +16,13 @@ namespace Keyboard
 
             string Output = Console.ReadLine();
 
-            if (string.IsNullOrEmpty(Output) || Output == default(string)) { throw new ArgumentException(exceptionmsg); }
+            if (string.IsNullOrEmpty(Output) || Output == default) { throw new ArgumentException(exceptionmsg); }
 
             return Output;
         }
         public static string Ask(string message, bool newline)
         {
-            if (newline == default(bool)) { newline = false; }
+            if (newline == default) { newline = false; }
 
             if (newline == true) { Console.WriteLine(message); }
             else { Console.Write(message); }
@@ -36,7 +36,7 @@ namespace Keyboard
 
             string Output = Console.ReadLine();
 
-            if (string.IsNullOrEmpty(Output) || Output == default(string)) { throw new ArgumentException(exceptionmsg); }
+            if (string.IsNullOrEmpty(Output) || Output == default) { throw new ArgumentException(exceptionmsg); }
 
             return Output;
         }
@@ -55,13 +55,13 @@ namespace Keyboard
 
             string Output = Console.ReadLine();
 
-            if (string.IsNullOrEmpty(Output) || Output == default(string)) { throw new ArgumentException(exceptionmsg); }
+            if (string.IsNullOrEmpty(Output) || Output == default) { throw new ArgumentException(exceptionmsg); }
 
             return Output;
         }
         public static object AskObj(string message, bool newline)
         {
-            if (newline == default(bool)) { newline = false; }
+            if (newline == default) { newline = false; }
 
             if (newline == true) { Console.WriteLine(message); }
             else { Console.Write(message); }
@@ -72,14 +72,14 @@ namespace Keyboard
         }
         public static object AskObj(string message, string exceptionmsg, bool newline)
         {
-            if (newline == default(bool)) { newline = false; }
+            if (newline == default) { newline = false; }
 
             if (newline == true) { Console.WriteLine(message); }
             else { Console.Write(message); }
 
             string Output = Console.ReadLine();
 
-            if (string.IsNullOrEmpty(Output) || Output == default(string)) { throw new ArgumentException(exceptionmsg); }
+            if (string.IsNullOrEmpty(Output) || Output == default) { throw new ArgumentException(exceptionmsg); }
 
             return Output;
         }
@@ -96,13 +96,13 @@ namespace Keyboard
 
             string Output = Console.ReadLine();
 
-            if (string.IsNullOrEmpty(Output) || Output == default(string)) { throw new ArgumentException(exceptionmsg); }
+            if (string.IsNullOrEmpty(Output) || Output == default) { throw new ArgumentException(exceptionmsg); }
 
             return (T)Convert.ChangeType(Output, typeof(T));
         }
         public static T Ask<T>(string message, bool newline)
         {
-            if (newline == default(bool)) { newline = false; }
+            if (newline == default) { newline = false; }
 
             if (newline == true) { Console.WriteLine(message); }
             else { Console.Write(message); }
@@ -111,14 +111,14 @@ namespace Keyboard
         }
         public static T Ask<T>(string message, string exceptionmsg, bool newline)
         {
-            if (newline == default(bool)) { newline = false; }
+            if (newline == default) { newline = false; }
 
             if (newline == true) { Console.WriteLine(message); }
             else { Console.Write(message); }
 
             string Output = Console.ReadLine();
 
-            if (string.IsNullOrEmpty(Output) || Output == default(string)) { throw new ArgumentException(exceptionmsg); }
+            if (string.IsNullOrEmpty(Output) || Output == default) { throw new ArgumentException(exceptionmsg); }
 
             return (T)Convert.ChangeType(Output, typeof(T));
         }
