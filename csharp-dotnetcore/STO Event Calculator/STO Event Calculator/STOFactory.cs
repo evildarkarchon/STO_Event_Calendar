@@ -22,7 +22,7 @@ namespace STO_Event_Calendar
 
         public STO Create(ref Options Opts, in Prompts Prompt, in ExceptionMsgs ExceptMsgs)
         {
-            if (string.IsNullOrEmpty(Opts.EndDate))
+            if (string.IsNullOrEmpty(Opts.EndDate) || Opts.EndDate == default)
             {
                 Opts.EndDate = Key.Ask(Prompt.EndDate, ExceptMsgs.EndDate);
             }

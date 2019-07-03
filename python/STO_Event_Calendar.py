@@ -13,6 +13,8 @@ from datetime import datetime, timedelta
 from math import ceil
 if sys.version_info[0] >= 3:
     raw_input = input
+
+
 def gatherinfo(string):
     '''This function prompts the user for input with the prompt being specified by the "string" argument.
        This function does not do any data verification, so any wrong data input will probably trigger a TypeError or ValueError later on.'''
@@ -21,12 +23,19 @@ def gatherinfo(string):
     except NameError:
         return input(string)
 
-parser = argparse.ArgumentParser(description="Calculator for Star Trek Online in-game events.")
-parser.add_argument('--daily-tokens', '-d', type=int, dest='daily', help='The amount of tokens you can get per day.')
-parser.add_argument('--total-tokens', '-t', type=int, dest='total', help='The total amount of tokens you need to complete the project.')
-parser.add_argument('--tokens-claimed', '-c', type=int, dest='claimed', help="The amount of tokens you've already claimed.")
-parser.add_argument('--end-date', '-e', dest='end', help="The date that the event ends.")
-parser.add_argument('--daily-reset', '-r', dest='reset', type=float, default=20.0, help="Time that the daily reset has left (in case you've already turned it in today), in hours.")
+
+parser = argparse.ArgumentParser(
+    description="Calculator for Star Trek Online in-game events.")
+parser.add_argument('--daily-tokens', '-d', type=int, dest='daily',
+                    help='The amount of tokens you can get per day.')
+parser.add_argument('--total-tokens', '-t', type=int, dest='total',
+                    help='The total amount of tokens you need to complete the project.')
+parser.add_argument('--tokens-claimed', '-c', type=int, dest='claimed',
+                    help="The amount of tokens you've already claimed.")
+parser.add_argument('--end-date', '-e', dest='end',
+                    help="The date that the event ends.")
+parser.add_argument('--daily-reset', '-r', dest='reset', type=float, default=20.0,
+                    help="Time that the daily reset has left (in case you've already turned it in today), in hours.")
 args = parser.parse_args()
 
 # Gathering info about the current event
@@ -60,7 +69,7 @@ else:
 # Calculating time left
 td = datetime.today()
 tod = td + timedelta(hours=reset)
-end = datetime.strptime(end_date, "%m/%d/%Y") # .date()
+end = datetime.strptime(end_date, "%m/%d/%Y")  # .date()
 remaining = end - td
 try:
     days_needed = timedelta(int(ceil((needed - tokens) / daily)))
@@ -82,12 +91,14 @@ final_day = end - days_needed
 print('\nToday\'s date:', td.strftime("%B %d %Y"))
 print('Days remaining in event:', remaining.days)
 
+
 def print_dates():
     print("Estimated date of completion (if you get your tokens every day):",
           date_needed.strftime("%B %d"))
     print("Daily quest will be available at aproximately:",
           tod.strftime("%B %d %Y at %I:%M %p"))
     print('Days needed to complete event:', days_needed.days)
+
 
 if final_day < td:
     print('The wormhole\'s closed, captain.')

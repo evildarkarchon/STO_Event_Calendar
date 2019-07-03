@@ -46,6 +46,7 @@ namespace STO_Event_Calendar
             {
                 throw new FormatException("Unable to parse date.");
             }
+            
             if (reset > 0)
             {
                 Reset = Now + TimeSpan.FromHours(reset);
@@ -55,6 +56,7 @@ namespace STO_Event_Calendar
                 Reset = Now;
                 throw new ArgumentException("Reset time must be greater than 0.");
             }
+            
             AllTokens = new Dictionary<string, uint>()
             {
                 { "TokensNeeded", needed },
@@ -78,13 +80,10 @@ namespace STO_Event_Calendar
             {
                 throw new FormatException("Unable to parse date.");
             }
+            
             Reset = Now + TimeSpan.FromHours(o.Reset);
 
-            if (o.Reset > 0)
-            {
-                Reset = Now + TimeSpan.FromHours(o.Reset);
-            }
-            else
+            if (o.Reset == 0)
             {
                 Reset = Now;
                 throw new ArgumentException("Reset time must be greater than 0.");
@@ -131,7 +130,9 @@ namespace STO_Event_Calendar
             {
                 throw new FormatException("Unable to parse date.");
             }
+            
             Dates = dates;
+            
             if (dates.Reset > 0)
             {
                 Reset = Now + TimeSpan.FromHours(dates.Reset);
@@ -152,6 +153,7 @@ namespace STO_Event_Calendar
 
             float _dn = (dates.Needed - dates.Tokens) / dates.Daily;
             DaysNeeded = TimeSpan.FromDays(Math.Ceiling(_dn));
+            
             if (o != default(Options))
             {
                 OutPath = o.JsonPath;
